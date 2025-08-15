@@ -9,7 +9,6 @@
     "zgl": "./dist/bin/zgl"
   },
   "scripts": {
-    "test": "jest",
     "build": "rollup -c"
   },
   "keywords": [],
