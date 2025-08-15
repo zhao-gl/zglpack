@@ -1,5 +1,5 @@
 export * from '@rspack/core';
-// @rspack/cli is not installed, so we can't import it directly
-// import * as rspackCli from '@rspack/cli';
+export * from '@rspack/cli';
+// 增强功能
+export * from './utils/enhanced';
 
-export * from './utils/utils';
