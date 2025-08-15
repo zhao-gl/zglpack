@@ -15,7 +15,7 @@ const serve = async (options: { port: string; open: boolean }) => {
       ...defaultConfig.devServer,
       ...userConfig.devServer,
       port: userConfig.devServer?.port || options.port || defaultConfig.devServer.port,
-      open: userConfig.devServer?.port || options.open || defaultConfig.devServer.open,
+      open: userConfig.devServer?.open || options.open || defaultConfig.devServer.open,
     },
   };
 
