@@ -50,5 +50,6 @@ export default {
         'uglify-js', 
         'tslib',
         'ts-node',
+        'vue-loader'
     ],
 };
