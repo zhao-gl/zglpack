@@ -38,3 +38,39 @@ export async function getUserConfig() {
   }
   return {};
 }
+
+
+// 动态获取入口点函数
+export function getEntryPoints() {
+  const entryPoints: Record<string, string> = {};
+  const srcDir = path.resolve(process.cwd(), 'src');
+
+  // 检查常见的入口文件
+  const possibleEntries = [
+    'index.js',
+    'index.jsx',
+    'index.ts',
+    'index.tsx',
+    'main.js',
+    'main.jsx',
+    'main.ts',
+    'main.tsx'
+  ];
+
+  for (const entryFile of possibleEntries) {
+    const entryPath = path.join(srcDir, entryFile);
+    if (fs.existsSync(entryPath)) {
+      // 使用文件名（不含扩展名）作为入口点名称
+      const entryName = path.basename(entryFile, path.extname(entryFile));
+      entryPoints[entryName] = entryPath;
+      break; // 找到第一个匹配的入口文件后停止
+    }
+  }
+
+  // 如果没有找到常见的入口文件，使用默认的index.js
+  if (Object.keys(entryPoints).length === 0) {
+    entryPoints['index'] = path.resolve(process.cwd(), 'src/index.js');
+  }
+
+  return entryPoints;
+}

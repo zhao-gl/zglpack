@@ -1,6 +1,5 @@
-import * as rspackCore from '@rspack/core';
+export * from '@rspack/core';
 // @rspack/cli is not installed, so we can't import it directly
 // import * as rspackCli from '@rspack/cli';
 
-export { rspackCore };
-// export { rspackCli };
+export * from '../src/utils/utils';
