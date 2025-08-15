@@ -30,6 +30,7 @@ async function init() {
         .command('build')
         .description('Build for production')
         .option('-m, --mode <mode>', 'build mode', 'production')
+        .option('-l, --lib', 'build as library')
         .action(build);
 
     // 解析命令行参数

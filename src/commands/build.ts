@@ -4,19 +4,23 @@ import { getUserConfig } from '../utils/utils';
 // 默认构建配置
 // @ts-ignore 忽略找不到模块声明文件的错误
 import getDefaultConfig from '../default.config.js';
+// @ts-ignore 忽略找不到模块声明文件的错误
+import getLibConfig from '../lib.config.js';
 
 /**
  * 构建项目
  * @param options 构建选项
  */
-const build = async (options: { mode: string }) => {
+const build = async (options: { mode: string, lib?: boolean }) => {
   const userConfig = await getUserConfig();
-  const defaultConfig = await getDefaultConfig();
+  
+  // 根据lib选项选择配置
+  const baseConfig = options.lib ? await getLibConfig() : await getDefaultConfig();
+  
   const config = {
-    ...defaultConfig,
+    ...baseConfig,
     ...userConfig,
-    mode: userConfig?.mode || options.mode || defaultConfig.mode,
-
+    mode: userConfig?.mode || options.mode || baseConfig.mode,
   };
 
   try {
