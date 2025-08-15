@@ -3,8 +3,7 @@ import { getUserConfig } from '../utils/utils';
 
 // 默认构建配置
 // @ts-ignore 忽略找不到模块声明文件的错误
-import defaultConfig from '../default.config.js';
-
+import getDefaultConfig from '../default.config.js';
 
 /**
  * 构建项目
@@ -12,6 +11,7 @@ import defaultConfig from '../default.config.js';
  */
 const build = async (options: { mode: string }) => {
   const userConfig = await getUserConfig();
+  const defaultConfig = await getDefaultConfig();
   const config = {
     ...defaultConfig,
     ...userConfig,

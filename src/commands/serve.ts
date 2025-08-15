@@ -4,10 +4,11 @@ import { getUserConfig } from '../utils/utils';
 
 // 默认配置
 // @ts-ignore 忽略找不到模块声明文件的错误
-import defaultConfig from '../default.config.js';
+import getDefaultConfig from '../default.config.js';
 
 const serve = async (options: { port: string; open: boolean }) => {
   const userConfig = await getUserConfig();
+  const defaultConfig = await getDefaultConfig();
   const config = {
     ...defaultConfig,
     ...userConfig,
@@ -23,7 +24,7 @@ const serve = async (options: { port: string; open: boolean }) => {
   const server = new RspackDevServer(config.devServer, compiler);
 
   await server.start();
-  console.log(`热重载服务器已启动: http://localhost:${config.devServer.port}`);
+  console.log(`服务器已启动: http://localhost:${config.devServer.port}`);
 };
 
 export {
