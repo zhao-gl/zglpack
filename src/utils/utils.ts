@@ -21,6 +21,7 @@ export async function getUserConfig() {
     if (typeof configExport === 'function') {
       return configExport();
     }
+
     return configExport;
   }
   // 尝试加载.js配置文件
@@ -38,7 +39,6 @@ export async function getUserConfig() {
   }
   return {};
 }
-
 
 // 动态获取入口点函数
 export function getEntryPoints() {
