@@ -1,0 +1,38 @@
+#!/usr/bin/env node
+import { program } from 'commander';
+import { serve } from '../commands/serve';
+import { build } from '../commands/build';
+import fs from 'fs';
+import path from 'path';
+
+
+// 定义版本和描述
+async function init() {
+    // 使用 readFileSync 替代 dynamic import with assert
+    // Use a more robust path resolution for Windows
+    const pkgPath = path.join(process.cwd(), 'package.json');
+    const pkg = JSON.parse(fs.readFileSync(pkgPath, 'utf-8'));
+
+    program
+        .version(pkg.version)
+        .description('A bundler based on Rspack');
+
+    // 开发服务器命令
+    program
+        .command('dev')
+        .description('Start development server')
+        .option('-p, --port <port>', 'server port', '3000')
+        .option('-o, --open', 'open browser automatically')
+        .action(serve);
+
+    // 生产构建命令
+    program
+        .command('build')
+        .description('Build for production')
+        .option('-m, --mode <mode>', 'build mode', 'production')
+        .action(build);
+
+    // 解析命令行参数
+    program.parse(process.argv);
+}
+init();

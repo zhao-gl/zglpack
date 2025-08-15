@@ -1,0 +1,15 @@
+# 忽略node_modules目录
+node_modules/
+
+# 忽略dist目录
+dist/
+
+# 日志文件
+logs/
+*.log
+
+# 编辑器配置文件（可选）
+.idea/
+.vscode/
+*.swp
+*.swo
