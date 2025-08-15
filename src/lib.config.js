@@ -1,7 +1,7 @@
 import path from "path";
 import fs from "fs";
 import pkg from '@rspack/core';
-const { ProgressPlugin, SwcJsMinimizerRspackPlugin, MiniCssExtractPlugin } = pkg;
+const { ProgressPlugin, SwcJsMinimizerRspackPlugin, CssExtractRspackPlugin } = pkg;
 import { getEntryPoints } from './utils/utils';
 import { detectProjectType, ProjectType, detectBundleType, BundleType } from './utils/enhanced';
 
@@ -112,14 +112,14 @@ export default async function () {
                     {
                         test: /\.css$/,
                         use: [
-                            MiniCssExtractPlugin.loader,
+                            CssExtractRspackPlugin.loader,
                             'builtin:css-loader',
                         ],
                     },
                     {
                         test: /\.less$/,
                         use: [
-                            MiniCssExtractPlugin.loader,
+                            CssExtractRspackPlugin.loader,
                             'builtin:css-loader',
                             {
                                 loader: 'builtin:less-loader',
@@ -134,7 +134,7 @@ export default async function () {
                     {
                         test: /\.scss$/,
                         use: [
-                            MiniCssExtractPlugin.loader,
+                            CssExtractRspackPlugin.loader,
                             'builtin:css-loader',
                             'builtin:sass-loader',
                         ],
@@ -151,7 +151,7 @@ export default async function () {
             },
             plugins: [
                 new ProgressPlugin({}),
-                new MiniCssExtractPlugin({
+                new CssExtractRspackPlugin({
                     filename: '[name].css',
                     chunkFilename: '[id].css',
                 }),
@@ -309,14 +309,14 @@ export default async function () {
                     {
                         test: /\.css$/,
                         use: [
-                            MiniCssExtractPlugin.loader,
+                            CssExtractRspackPlugin.loader,
                             'builtin:css-loader',
                         ],
                     },
                     {
                         test: /\.less$/,
                         use: [
-                            MiniCssExtractPlugin.loader,
+                            CssExtractRspackPlugin.loader,
                             'builtin:css-loader',
                             {
                                 loader: 'builtin:less-loader',
@@ -331,7 +331,7 @@ export default async function () {
                     {
                         test: /\.scss$/,
                         use: [
-                            MiniCssExtractPlugin.loader,
+                            CssExtractRspackPlugin.loader,
                             'builtin:css-loader',
                             'builtin:sass-loader',
                         ],
@@ -348,7 +348,7 @@ export default async function () {
             },
             plugins: [
                 new ProgressPlugin({}),
-                new MiniCssExtractPlugin({
+                new CssExtractRspackPlugin({
                     filename: '[name].css',
                     chunkFilename: '[id].css',
                 }),
@@ -506,14 +506,14 @@ export default async function () {
                     {
                         test: /\.css$/,
                         use: [
-                            MiniCssExtractPlugin.loader,
+                            CssExtractRspackPlugin.loader,
                             'builtin:css-loader',
                         ],
                     },
                     {
                         test: /\.less$/,
                         use: [
-                            MiniCssExtractPlugin.loader,
+                            CssExtractRspackPlugin.loader,
                             'builtin:css-loader',
                             {
                                 loader: 'builtin:less-loader',
@@ -528,7 +528,7 @@ export default async function () {
                     {
                         test: /\.scss$/,
                         use: [
-                            MiniCssExtractPlugin.loader,
+                            CssExtractRspackPlugin.loader,
                             'builtin:css-loader',
                             'builtin:sass-loader',
                         ],
@@ -545,7 +545,7 @@ export default async function () {
             },
             plugins: [
                 new ProgressPlugin({}),
-                new MiniCssExtractPlugin({
+                new CssExtractRspackPlugin({
                     filename: '[name].css',
                     chunkFilename: '[id].css',
                 }),
