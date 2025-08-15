@@ -15,7 +15,8 @@ const build = async (options: { mode: string }) => {
   const config = {
     ...defaultConfig,
     ...userConfig,
-    mode: options.mode || defaultConfig.mode,
+    mode: userConfig?.mode || options.mode || defaultConfig.mode,
+
   };
 
   try {
