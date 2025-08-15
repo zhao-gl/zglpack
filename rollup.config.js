@@ -40,6 +40,7 @@ export default {
     ],
     external: [
         '@rspack/core', 
+        '@rspack/cli',
         '@rspack/dev-server', 
         'commander', 
         '@swc/core', 

@@ -19,13 +19,13 @@
     "@rspack/core": "^1.4.11",
     "@rspack/dev-server": "^1.1.4",
     "commander": "^14.0.0",
-    "ts-node": "^10.9.2"
+    "ts-node": "^10.9.2",
+    "@rspack/cli": "^1.4.11"
   },
   "devDependencies": {
     "@rollup/plugin-commonjs": "^28.0.6",
     "@rollup/plugin-json": "^6.1.0",
     "@rollup/plugin-node-resolve": "^16.0.1",
-    "@rspack/cli": "^1.4.11",
     "@swc/core": "^1.13.3",
     "@types/jest": "^29.5.0",
     "@types/node": "^24.2.1",
