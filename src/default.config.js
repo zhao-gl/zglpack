@@ -15,7 +15,7 @@ export default {
     },
     devtool: false,
     resolve: {
-        extensions: ['.tsx', '.ts', '.jsx', '.js'],
+        extensions: ['.tsx', '.ts', '.jsx', '.js', '.scss', '.less'],
         alias: {
             '@': path.resolve(process.cwd(), 'src'),
         },
@@ -87,6 +87,20 @@ export default {
                         },
                     },
                     'builtin:css-loader',  // 处理CSS文件
+                ],
+            },
+            {
+                test: /\.less$/,  // 匹配.less文件
+                use: [
+                    {
+                        loader: 'builtin:mini-css-extract-plugin',  // 提取CSS到单独文件
+                        options: {
+                            filename: 'css/[name].[contenthash].css',
+                            chunkFilename: 'css/[name].[contenthash].chunk.css',
+                        },
+                    },
+                    'builtin:css-loader',  // 处理CSS文件
+                    'builtin:less-loader',  // 处理LESS文件
                 ],
             },
             {
