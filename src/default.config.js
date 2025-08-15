@@ -6,16 +6,16 @@ import { detectProjectType, ProjectType } from './utils/enhanced';
 
 // 动态生成默认配置
 export default async function () {
-  // 检测项目类型
-  const projectType = await detectProjectType();
-  const config = {
+    // 检测项目类型
+    const projectType = await detectProjectType();
+    const config = {
         mode: 'production',
         entry: getEntryPoints(),
         output: {
-        path: path.resolve(process.cwd(), 'dist'),
-        filename: 'js/[name].[contenthash].js', // 使用contenthash以实现更好的缓存策略
-        assetModuleFilename: '[path][name].[contenthash][ext]',
-        clean: true, // 在生成文件之前清空输出目录
+            path: path.resolve(process.cwd(), 'dist'),
+            filename: 'js/[name].[contenthash].js', // 使用contenthash以实现更好的缓存策略
+            assetModuleFilename: '[path][name].[contenthash][ext]',
+            clean: true, // 在生成文件之前清空输出目录
         },
         devtool: false,
         resolve: {
@@ -35,7 +35,7 @@ export default async function () {
                             jsc: {
                                 parser: {
                                     syntax: 'ecmascript',
-                            jsx: true,
+                                    jsx: true,
                                 },
                                 transform: {
                                     react: {
@@ -222,24 +222,24 @@ export default async function () {
             ]
         },
         devServer: {
-        port: 3000,
-        open: false,
+            port: 3000,
+            open: false,
         },
     }
     // 根据项目类型添加特定配置
     if (projectType === ProjectType.Vue) {
         // 动态导入Vue相关模块
         const { VueLoaderPlugin } = await import('vue-loader');
-        
+
         // 添加Vue loader规则
         config.module.rules.push({
-        test: /\.vue$/,
-        use: 'vue-loader',
+            test: /\.vue$/,
+            use: 'vue-loader',
         });
-        
+
         // 添加Vue loader插件
         config.plugins.push(new VueLoaderPlugin());
-        
+
         // 添加.vue扩展名
         config.resolve.extensions.push('.vue');
     }
