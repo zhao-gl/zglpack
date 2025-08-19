@@ -1,7 +1,7 @@
 import path from "path";
 import fs from "fs";
 import pkg from '@rspack/core';
-const { ProgressPlugin, SwcJsMinimizerRspackPlugin, CssExtractRspackPlugin } = pkg;
+const { ProgressPlugin, SwcJsMinimizerRspackPlugin } = pkg;
 import { getEntryPoints } from './utils/utils';
 import { detectProjectType, ProjectType, detectBundleType, BundleType } from './utils/enhanced';
 
@@ -96,13 +96,17 @@ export default async function () {
                 },
                 {
                     test: /\.css$/i,
-                    use: [CssExtractRspackPlugin.loader, 'css-loader'],
+                    use: [CssExtractRspackPlugin.loader, 'builtin:css-loader'],
                     type: 'javascript/auto',
                 },
                 {
                     test: /\.less$/,
                     type: 'css',
-                    use: ['less-loader'],
+                    use: [
+                        CssExtractRspackPlugin.loader,  // 提取 CSS 的 loader（内置）
+                        'builtin:css-loader',  // 内置 CSS 解析器
+                        'builtin:less-loader'  // 内置 Less 编译器
+                    ]
                 },
                 {
                     test: /\.scss$/,
