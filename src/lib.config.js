@@ -98,12 +98,10 @@ export default async function () {
                 },
                 {
                     test: /\.less$/,
-                    type: 'css/auto',
                     use: ['less-loader'],
                 },
                 {
                     test: /\.scss$/,
-                    type: 'css/auto',
                     use: ['sass-loader'],
                 },
                 {
