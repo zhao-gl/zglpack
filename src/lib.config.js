@@ -196,7 +196,8 @@ export default async function () {
 
     // 获取需要生成的打包类型
     const bundleTypes = detectBundleType(packageJson);
-
+    console.log('bundleTypes',bundleTypes);
+    
     if (bundleTypes.includes(BundleType.CJS)) {
         const output = {
             path: path.resolve(process.cwd(), 'dist/cjs'),
@@ -229,18 +230,20 @@ export default async function () {
     }
 
     // 为每个配置设置外部依赖
-    if (projectType === ProjectType.React) {
-        config.externals = {
-            'react': 'react',
-            'react-dom': 'react-dom'
-        };
-    } else if (projectType === ProjectType.Vue) {
-        config.externals = {
-            'vue': 'vue'
-        };
-    } else {
-        config.externals = {};
-    }
+    configs.forEach(cfg => {
+        if (projectType === ProjectType.React) {
+            cfg.externals = {
+                'react': 'react',
+                'react-dom': 'react-dom'
+            };
+        } else if (projectType === ProjectType.Vue) {
+            cfg.externals = {
+                'vue': 'vue'
+            };
+        } else {
+            cfg.externals = {};
+        }
+    });
 
-    return config;
+    return configs;
 }
