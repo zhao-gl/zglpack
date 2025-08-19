@@ -19,20 +19,26 @@ export enum BundleType {
 // 检测打包类型
 export function detectBundleType(packageJson: any): BundleType[] {
   const bundleTypes: BundleType[] = [];
-  
+  // 如果package.json中有exports字段
+  if (packageJson.exports) {
+    if(packageJson.exports.browser || packageJson.exports['.browser']){
+      bundleTypes.push(BundleType.UMD);
+    }
+    if(packageJson.exports.import || packageJson.exports['.module']){
+      bundleTypes.push(BundleType.ESM);
+    }
+    if(packageJson.exports.require || packageJson.exports['.require']){
+      bundleTypes.push(BundleType.CJS);
+    }
+    return bundleTypes
+  }
+  // 如果package.json中有type: "module"或有exports字段，则添加ESM配置
+  if (packageJson.type === 'module') {
+    bundleTypes.push(BundleType.ESM);
+    return bundleTypes;
+  }
   // 默认添加CommonJS配置
   bundleTypes.push(BundleType.CJS);
-  
-  // 如果package.json中有type: "module"或有exports字段，则添加ESM配置
-  if (packageJson.type === 'module' || packageJson.exports) {
-    bundleTypes.push(BundleType.ESM);
-  }
-  
-  // 如果package.json中有exports字段且包含browser或umd相关配置，则添加UMD配置
-  if (packageJson.exports && (packageJson.exports.browser || packageJson.exports.import || packageJson.exports.require)) {
-    bundleTypes.push(BundleType.UMD);
-  }
-  
   return bundleTypes;
 }
 

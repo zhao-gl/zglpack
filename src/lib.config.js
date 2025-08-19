@@ -431,7 +431,7 @@ export default async function () {
             mode: 'production',
             entry: getEntryPoints(),
             output: {
-                path: path.resolve(process.cwd(), 'dist/js'),
+                path: path.resolve(process.cwd(), 'dist/umd'),
                 filename: '[name].umd.js',
                 library: {
                     type: 'umd'
