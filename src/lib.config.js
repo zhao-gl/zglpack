@@ -48,6 +48,9 @@ export default async function () {
                     '@': path.resolve(process.cwd(), 'src'),
                 },
             },
+            experiments: {
+                css: true,
+            },
             externals: {}, // 外部依赖，将在下面根据项目类型填充
             module: {
                 rules: [
@@ -113,11 +116,11 @@ export default async function () {
                     {
                         test: /\.less$/,
                         use: [
-                            { 
-                                loader: 'less-loader', 
+                            {
+                                loader: 'less-loader',
                                 options: {
                                     lessOptions: { javascriptEnabled: true }
-                                } 
+                                }
                             }
                         ],
                         // 如果你需要将 '*.module.less' 视为 CSS Modules 那么将 'type' 设置为 'css/auto' 否则设置为 'css'
@@ -188,6 +191,9 @@ export default async function () {
                     '@': path.resolve(process.cwd(), 'src'),
                 },
             },
+            experiments: {
+                css: true,
+            },
             externals: {}, // 外部依赖，将在下面根据项目类型填充
             module: {
                 rules: [
@@ -253,11 +259,11 @@ export default async function () {
                     {
                         test: /\.less$/,
                         use: [
-                            { 
-                                loader: 'less-loader', 
+                            {
+                                loader: 'less-loader',
                                 options: {
                                     lessOptions: { javascriptEnabled: true }
-                                } 
+                                }
                             }
                         ],
                         // 如果你需要将 '*.module.less' 视为 CSS Modules 那么将 'type' 设置为 'css/auto' 否则设置为 'css'
@@ -327,6 +333,9 @@ export default async function () {
                     '@': path.resolve(process.cwd(), 'src'),
                 },
             },
+            experiments: {
+                css: true,
+            },
             externals: {}, // 外部依赖，将在下面根据项目类型填充
             module: {
                 rules: [
@@ -392,11 +401,11 @@ export default async function () {
                     {
                         test: /\.less$/,
                         use: [
-                            { 
-                                loader: 'less-loader', 
+                            {
+                                loader: 'less-loader',
                                 options: {
                                     lessOptions: { javascriptEnabled: true }
-                                } 
+                                }
                             }
                         ],
                         // 如果你需要将 '*.module.less' 视为 CSS Modules 那么将 'type' 设置为 'css/auto' 否则设置为 'css'
