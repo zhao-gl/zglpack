@@ -108,19 +108,19 @@ export default async function () {
                         // 处理普通 CSS（非 .module.css）
                         {
                             use: [CssExtractRspackPlugin.loader, 'css-loader'],
-                            type: 'css', // 全局样式，不生成哈希
+                            type: 'javascript/auto', // 全局样式，不生成哈希
                         },
                     ],
                 },
                 {
                     test: /\.less$/,
                     use: [CssExtractRspackPlugin.loader],
-                    type: 'css',  // 修改这行
+                    type: 'javascript/auto',  // 修改这行
                 },
                 {
                     test: /\.sass$/,
                     use: [CssExtractRspackPlugin.loader],
-                    type: 'css',  // 修改这行
+                    type: 'javascript/auto',  // 修改这行
                 },
                 {
                     test: /\.(png|jpe?g|gif|svg)$/i,  // 匹配图片文件
