@@ -43,7 +43,6 @@ export default async function () {
                     module: true, // 启用ESM支持
                     dynamicImport: true, // 启用动态导入
                 },
-                clean: true,
             },
             devtool: false,
             resolve: {
