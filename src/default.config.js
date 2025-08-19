@@ -1,6 +1,5 @@
 import path from "path";
 import pkg from '@rspack/core';
-import MiniCssExtractPlugin from 'mini-css-extract-plugin';
 const { ProgressPlugin, HtmlRspackPlugin, SwcJsMinimizerRspackPlugin } = pkg;
 import { getEntryPoints } from './utils/utils';
 import { detectProjectType, ProjectType } from './utils/enhanced';
@@ -84,14 +83,26 @@ export default async function () {
         {
           test: /\.css$/,  // 匹配.css文件
           use: [
-            MiniCssExtractPlugin.loader,  // 提取CSS到单独文件
+            {
+              loader: 'builtin:mini-css-extract-plugin',  // 提取CSS到单独文件
+              options: {
+                filename: 'css/[name].[contenthash].css',
+                chunkFilename: 'css/[name].[contenthash].chunk.css',
+              },
+            },
             'builtin:css-loader',  // 处理CSS文件
           ],
         },
         {
           test: /\.less$/,  // 匹配.less文件
           use: [
-            MiniCssExtractPlugin.loader,  // 提取CSS到单独文件
+            {
+              loader: 'builtin:mini-css-extract-plugin',  // 提取CSS到单独文件
+              options: {
+                filename: 'css/[name].[contenthash].css',
+                chunkFilename: 'css/[name].[contenthash].chunk.css',
+              },
+            },
             'builtin:css-loader',  // 处理CSS文件
             'builtin:less-loader',  // 处理LESS文件
           ],
@@ -99,9 +110,15 @@ export default async function () {
         {
           test: /\.scss$/,  // 匹配.scss文件
           use: [
-            MiniCssExtractPlugin.loader,  // 提取CSS到单独文件
+            {
+              loader: 'builtin:mini-css-extract-plugin',  // 提取CSS到单独文件
+              options: {
+                filename: 'css/[name].[contenthash].css',
+                chunkFilename: 'css/[name].[contenthash].chunk.css',
+              },
+            },
             'builtin:css-loader',  // 处理CSS文件
-            'sass-loader',  // 处理SCSS文件
+            'builtin:sass-loader',  // 处理SCSS文件
           ],
         },
         {
@@ -128,17 +145,13 @@ export default async function () {
       ],
     },
     plugins: [
-            new ProgressPlugin({}),  // 添加打包进度条插件
-            // 自动生成HTML
-            new HtmlRspackPlugin({
-                template: './public/index.html',
-                filename: 'index.html'
-            }),
-            new MiniCssExtractPlugin({
-                filename: 'css/[name].[contenthash].css',
-                chunkFilename: 'css/[name].[contenthash].chunk.css',
-            }),
-        ],
+      new ProgressPlugin({}),  // 添加打包进度条插件
+      // 自动生成HTML
+      new HtmlRspackPlugin({
+        template: './public/index.html',
+        filename: 'index.html'
+      })
+    ],
     // 调整性能提示阈值
     performance: {
       maxEntrypointSize: 500000, // 提高到500KB
