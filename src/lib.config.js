@@ -1,7 +1,7 @@
 import path from "path";
 import fs from "fs";
 import pkg from '@rspack/core';
-const {rspack, ProgressPlugin, SwcJsMinimizerRspackPlugin } = pkg;
+const { rspack, ProgressPlugin, SwcJsMinimizerRspackPlugin } = pkg;
 import { getEntryPoints } from './utils/utils';
 import { detectProjectType, ProjectType, detectBundleType, BundleType } from './utils/enhanced';
 
@@ -20,7 +20,7 @@ export default async function () {
             console.warn('Failed to parse package.json:', error);
         }
     }
-    // const configs = [];
+    const configs = [];
     // 根据package.json的type字段和exports字段确定打包配置
     const config = {
         // CommonJS 配置
@@ -198,30 +198,34 @@ export default async function () {
     const bundleTypes = detectBundleType(packageJson);
 
     if (bundleTypes.includes(BundleType.CJS)) {
-        config.output = {
+        const output = {
             path: path.resolve(process.cwd(), 'dist/cjs'),
             filename: '[name].js',
             library: {
                 type: 'commonjs',
             },
         };
-        // configs.push(config);
-    } else if (bundleTypes.includes(BundleType.ESM)) {
-        config.output = {
+        configs.push(Object.assign({}, config, output));
+    }
+    if (bundleTypes.includes(BundleType.ESM)) {
+        const output = {
             path: path.resolve(process.cwd(), 'dist/esm'),
             filename: '[name].js',
             library: {
                 type: 'module',
             },
         };
-    } else if (bundleTypes.includes(BundleType.UMD)) {
-        config.output = {
+        configs.push(Object.assign({}, config, output));
+    }
+    if (bundleTypes.includes(BundleType.UMD)) {
+        const output = {
             path: path.resolve(process.cwd(), 'dist/umd'),
             filename: '[name].js',
             library: {
                 type: 'umd',
             },
         };
+        configs.push(Object.assign({}, config, output));
     }
 
     // 为每个配置设置外部依赖
