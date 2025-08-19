@@ -86,7 +86,7 @@ export default async function () {
                 },
                 {
                     test: /\.css$/,  // 匹配.css文件
-                    use: [CssExtractRspackPlugin.loader],
+                    use: [CssExtractRspackPlugin.loader,'css-loader'],
                     type: 'css',
                 },
                 {
