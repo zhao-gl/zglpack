@@ -3,7 +3,7 @@ import fs from "fs";
 import pkg from '@rspack/core';
 // import { CssExtractRspackPlugin } from '@rspack/core';
 const { ProgressPlugin, SwcJsMinimizerRspackPlugin } = pkg;
-import { getEntryPoints } from './utils/utils';
+import { getEntryPoints, generateEntriesFromSourceFiles } from './utils/utils';
 import { detectProjectType, ProjectType, detectBundleType, BundleType } from './utils/enhanced';
 
 // 动态生成库模式配置
@@ -22,17 +22,18 @@ export default async function () {
         }
     }
     const configs = [];
-    // 根据package.json的type字段和exports字段确定打包配置
-
-
     // 获取需要生成的打包类型
     const bundleTypes = detectBundleType(packageJson);
-    console.log('bundleTypes', bundleTypes);
+    // console.log('bundleTypes', bundleTypes);
+
+    // 生成按需导入的入口点
+    const srcDir = path.resolve(process.cwd(), 'src');
+    const onDemandEntries = generateEntriesFromSourceFiles(srcDir);
     // ESM 配置
     if (bundleTypes.includes(BundleType.ESM)) {
         const config = {
             mode: 'production',
-            entry: getEntryPoints(),
+            entry: onDemandEntries,
             output: {
                 path: path.resolve(process.cwd(), 'dist/esm'),
                 filename: '[name].js',
@@ -200,7 +201,7 @@ export default async function () {
         const config = {
             // CommonJS 配置
             mode: 'production',
-            entry: getEntryPoints(),
+            entry: onDemandEntries,
             output: {
                 path: path.resolve(process.cwd(), 'dist/cjs'),
                 filename: '[name].js',

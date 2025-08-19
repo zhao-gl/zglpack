@@ -74,3 +74,45 @@ export function getEntryPoints() {
 
   return entryPoints;
 }
+
+// 获取所有源文件
+export function getAllSourceFiles(srcDir: string) {
+  const files: string[] = [];
+
+  function walk(dir: string) {
+    const items = fs.readdirSync(dir);
+    items.forEach(item => {
+      const fullPath = path.join(dir, item);
+      const stat = fs.statSync(fullPath);
+
+      if (stat.isDirectory()) {
+        walk(fullPath);
+      } else if (stat.isFile() &&
+          (fullPath.endsWith('.ts') ||
+              fullPath.endsWith('.tsx') ||
+              fullPath.endsWith('.js') ||
+              fullPath.endsWith('.jsx')) &&
+          !fullPath.endsWith('.d.ts') &&
+          !path.basename(fullPath).startsWith('_')) {
+        files.push(fullPath);
+      }
+    });
+  }
+
+  walk(srcDir);
+  return files;
+}
+// 生成入口点
+export function generateEntriesFromSourceFiles(srcDir: string) {
+  const files = getAllSourceFiles(srcDir);
+  const entries:Record<string, string> = {};
+
+  files.forEach(file => {
+    // 生成相对于src目录的路径作为入口名
+    const relativePath = path.relative(srcDir, file);
+    const entryName = relativePath.replace(/\.(ts|tsx|js|jsx)$/, '');
+    entries[entryName] = file;
+  });
+
+  return entries;
+}
