@@ -31,7 +31,6 @@ export default async function () {
     // ESM 配置
     if (bundleTypes.includes(BundleType.ESM)) {
         const config = {
-            // CommonJS 配置
             mode: 'production',
             entry: getEntryPoints(),
             output: {
@@ -69,10 +68,7 @@ export default async function () {
                                         react: {
                                             runtime: 'automatic',
                                         },
-                                    },
-                                    module: {
-                                        type: 'module', // 默认按 CJS 转换（后续会动态覆盖）
-                                    },
+                                    }
                                 },
                             },
                         },
@@ -237,8 +233,8 @@ export default async function () {
                                         react: {
                                             runtime: 'automatic',
                                         },
-                                    },
-                                },
+                                    }
+                                }
                             },
                         },
                     },
