@@ -97,7 +97,7 @@ export default async function () {
                 },
                 {
                     test: /\.css$/i,
-                    use: [rspack.CssExtractRspackPlugin.loader, 'builtin:css-loader'],
+                    use: [rspack.CssExtractRspackPlugin.loader, 'css-loader'],
                     type: 'javascript/auto',
                 },
                 {
