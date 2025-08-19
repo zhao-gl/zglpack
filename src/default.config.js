@@ -19,7 +19,7 @@ export default async function () {
             clean: true, // 在生成文件之前清空输出目录
         },
         experiments: {
-            css: false,
+            css: true,
         },
         devtool: false,
         resolve: {
