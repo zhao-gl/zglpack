@@ -129,7 +129,9 @@ export default async function () {
                 template: './public/index.html',
                 filename: 'index.html'
             }),
-            new CssExtractRspackPlugin()
+            new CssExtractRspackPlugin({
+                filename: 'css/[name].[contenthash].css',
+            })
         ],
         // 调整性能提示阈值
         performance: {
