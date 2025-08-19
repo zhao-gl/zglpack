@@ -118,44 +118,41 @@ export default async function () {
                             // 处理 CSS Modules（.module.css）
                             {
                                 test: /\.module\.css$/i,
-                                use: [
-                                    CssExtractRspackPlugin.loader,
-                                    {
-                                        loader: 'css-loader',
-                                        options: {
-                                            modules: {
-                                                // 生成哈希类名（关键配置）
-                                                localIdentName: '[local]__[hash:base64:5]', // 格式：原类名__哈希值
-                                            },
-                                        },
-                                    },
-                                ],
-                                type: 'css/auto', // 启用模块化
+                                type: 'css/module', // 使用内置CSS模块支持
                             },
                             // 处理普通 CSS（非 .module.css）
                             {
-                                use: [CssExtractRspackPlugin.loader, 'css-loader'],
-                                type: 'css', // 全局样式，不生成哈希
+                                type: 'css'
                             },
                         ],
                     },
                     {
                         test: /\.less$/,
-                        use: [
+                        oneOf: [
                             {
-                                loader: 'less-loader',
-                                options: {
-                                    lessOptions: { javascriptEnabled: true }
-                                }
-                            }
-                        ],
-                        // 如果你需要将 '*.module.less' 视为 CSS Modules 那么将 'type' 设置为 'css/auto' 否则设置为 'css'
-                        type: 'css/auto',
+                                test: /\.module\.less$/i,
+                                use: ['less-loader'],
+                                type: 'css/module', // 使用CSS模块
+                            },
+                            {
+                                use: ['less-loader'],
+                                type: 'css', // 使用普通CSS
+                            },
+                        ]
                     },
                     {
-                        test: /\.scss$/,
-                        type: 'css',
-                        use: ['sass-loader'],
+                        test: /\.sass$/,
+                        oneOf: [
+                            {
+                                test: /\.module\.sass$/i,
+                                use: ['sass-loader'],
+                                type: 'css/module', // 使用CSS模块
+                            },
+                            {
+                                use: ['sass-loader'],
+                                type: 'css', // 使用普通CSS
+                            },
+                        ]
                     },
                     {
                         test: /\.(png|jpe?g|gif|svg)$/i,
@@ -284,44 +281,41 @@ export default async function () {
                             // 处理 CSS Modules（.module.css）
                             {
                                 test: /\.module\.css$/i,
-                                use: [
-                                    CssExtractRspackPlugin.loader,
-                                    {
-                                        loader: 'css-loader',
-                                        options: {
-                                            modules: {
-                                                // 生成哈希类名（关键配置）
-                                                localIdentName: '[local]__[hash:base64:5]', // 格式：原类名__哈希值
-                                            },
-                                        },
-                                    },
-                                ],
-                                type: 'css/auto', // 启用模块化
+                                type: 'css/module', // 使用内置CSS模块支持
                             },
                             // 处理普通 CSS（非 .module.css）
                             {
-                                use: [CssExtractRspackPlugin.loader, 'css-loader'],
-                                type: 'css', // 全局样式，不生成哈希
+                                type: 'css'
                             },
                         ],
                     },
                     {
                         test: /\.less$/,
-                        use: [
+                        oneOf: [
                             {
-                                loader: 'less-loader',
-                                options: {
-                                    lessOptions: { javascriptEnabled: true }
-                                }
-                            }
-                        ],
-                        // 如果你需要将 '*.module.less' 视为 CSS Modules 那么将 'type' 设置为 'css/auto' 否则设置为 'css'
-                        type: 'css/auto',
+                                test: /\.module\.less$/i,
+                                use: ['less-loader'],
+                                type: 'css/module', // 使用CSS模块
+                            },
+                            {
+                                use: ['less-loader'],
+                                type: 'css', // 使用普通CSS
+                            },
+                        ]
                     },
                     {
-                        test: /\.scss$/,
-                        type: 'css',
-                        use: ['sass-loader'],
+                        test: /\.sass$/,
+                        oneOf: [
+                            {
+                                test: /\.module\.sass$/i,
+                                use: ['sass-loader'],
+                                type: 'css/module', // 使用CSS模块
+                            },
+                            {
+                                use: ['sass-loader'],
+                                type: 'css', // 使用普通CSS
+                            },
+                        ]
                     },
                     {
                         test: /\.(png|jpe?g|gif|svg)$/i,
@@ -448,44 +442,41 @@ export default async function () {
                             // 处理 CSS Modules（.module.css）
                             {
                                 test: /\.module\.css$/i,
-                                use: [
-                                    CssExtractRspackPlugin.loader,
-                                    {
-                                        loader: 'css-loader',
-                                        options: {
-                                            modules: {
-                                                // 生成哈希类名（关键配置）
-                                                localIdentName: '[local]__[hash:base64:5]', // 格式：原类名__哈希值
-                                            },
-                                        },
-                                    },
-                                ],
-                                type: 'css/auto', // 启用模块化
+                                type: 'css/module', // 使用内置CSS模块支持
                             },
                             // 处理普通 CSS（非 .module.css）
                             {
-                                use: [CssExtractRspackPlugin.loader, 'css-loader'],
-                                type: 'css', // 全局样式，不生成哈希
+                                type: 'css'
                             },
                         ],
                     },
                     {
                         test: /\.less$/,
-                        use: [
+                        oneOf: [
                             {
-                                loader: 'less-loader',
-                                options: {
-                                    lessOptions: { javascriptEnabled: true }
-                                }
-                            }
-                        ],
-                        // 如果你需要将 '*.module.less' 视为 CSS Modules 那么将 'type' 设置为 'css/auto' 否则设置为 'css'
-                        type: 'css/auto',
+                                test: /\.module\.less$/i,
+                                use: ['less-loader'],
+                                type: 'css/module', // 使用CSS模块
+                            },
+                            {
+                                use: ['less-loader'],
+                                type: 'css', // 使用普通CSS
+                            },
+                        ]
                     },
                     {
-                        test: /\.scss$/,
-                        type: 'css',
-                        use: ['sass-loader'],
+                        test: /\.sass$/,
+                        oneOf: [
+                            {
+                                test: /\.module\.sass$/i,
+                                use: ['sass-loader'],
+                                type: 'css/module', // 使用CSS模块
+                            },
+                            {
+                                use: ['sass-loader'],
+                                type: 'css', // 使用普通CSS
+                            },
+                        ]
                     },
                     {
                         test: /\.(png|jpe?g|gif|svg)$/i,
