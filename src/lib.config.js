@@ -173,21 +173,21 @@ export default async function () {
             },
             optimization: {
                 splitChunks: false,
-                minimizer: [
-                    new SwcJsMinimizerRspackPlugin({
-                        // 生产环境启用压缩
-                        include: /\.m?js$/i,
-                        minimizerOptions: {
-                            compress: {
-                                drop_console: true, // 移除console
-                                drop_debugger: true, // 移除debugger
-                            },
-                            mangle: {
-                                toplevel: true,
-                            }
-                        }
-                    })
-                ]
+                // minimizer: [
+                //     new SwcJsMinimizerRspackPlugin({
+                //         // 生产环境启用压缩
+                //         include: /\.m?js$/i,
+                //         minimizerOptions: {
+                //             compress: {
+                //                 drop_console: true, // 移除console
+                //                 drop_debugger: true, // 移除debugger
+                //             },
+                //             mangle: {
+                //                 toplevel: true,
+                //             }
+                //         }
+                //     })
+                // ]
             },
         };
         configs.push(config);
