@@ -1,7 +1,7 @@
 import path from "path";
 import fs from "fs";
 import pkg from '@rspack/core';
-import { rspack } from '@rspack/core';
+import { CssExtractRspackPlugin } from '@rspack/core';
 const { ProgressPlugin, SwcJsMinimizerRspackPlugin } = pkg;
 import { getEntryPoints } from './utils/utils';
 import { detectProjectType, ProjectType, detectBundleType, BundleType } from './utils/enhanced';
@@ -28,9 +28,6 @@ export default async function () {
         mode: 'production',
         entry: getEntryPoints(),
         output: {},
-        experiments: {
-            css: true,
-        },
         devtool: false,
         resolve: {
             extensions: ['.tsx', '.ts', '.jsx', '.js', '.scss', '.less', '.vue'],
@@ -97,17 +94,21 @@ export default async function () {
                 },
                 {
                     test: /\.css$/i,
-                    use: [rspack.CssExtractRspackPlugin.loader, 'css-loader'],
-                    type: 'javascript/auto',
+                    use: [CssExtractRspackPlugin.loader, 'css-loader'],
+                    // type: 'javascript/auto',
                 },
                 {
                     test: /\.less$/,
-                    type: 'css',
                     use: [
-                        rspack.CssExtractRspackPlugin.loader,  // 提取 CSS 的 loader（内置）
-                        'builtin:css-loader',  // 内置 CSS 解析器
-                        'builtin:less-loader'  // 内置 Less 编译器
-                    ]
+                        {
+                            loader: 'less-loader',
+                            options: {
+                                // ...
+                            },
+                        },
+                    ],
+                    // 如果你需要将 '*.module.less' 视为 CSS Modules 那么将 'type' 设置为 'css/auto' 否则设置为 'css'
+                    type: 'css/auto',
                 },
                 {
                     test: /\.scss$/,
@@ -126,9 +127,7 @@ export default async function () {
         },
         plugins: [
             new ProgressPlugin({}),
-            new rspack.CssExtractRspackPlugin({
-                filename: '[name].css'
-            })
+            new CssExtractRspackPlugin({})
         ],
         // 调整性能提示阈值
         performance: {
