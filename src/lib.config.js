@@ -39,6 +39,11 @@ export default async function () {
                 library: {
                     type: 'module',
                 },
+                environment: {
+                    module: true, // 启用ESM支持
+                    dynamicImport: true, // 启用动态导入
+                },
+                clean: true,
             },
             devtool: false,
             resolve: {
@@ -50,10 +55,6 @@ export default async function () {
             experiments: {
                 css: true,
                 outputModule: true
-            },
-            environment: {
-                module: true, // 启用ESM支持
-                dynamicImport: true, // 启用动态导入
             },
             externals: {}, // 外部依赖，将在下面根据项目类型填充
             module: {
