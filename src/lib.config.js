@@ -1,8 +1,7 @@
 import path from "path";
 import fs from "fs";
 import pkg from '@rspack/core';
-const { rspack, ProgressPlugin, SwcJsMinimizerRspackPlugin } = pkg;
-import MiniCssExtractPlugin from '@rspack/plugin-mini-css-extract';
+const { ProgressPlugin, SwcJsMinimizerRspackPlugin, CssExtractRspackPlugin } = pkg;
 import { getEntryPoints } from './utils/utils';
 import { detectProjectType, ProjectType, detectBundleType, BundleType } from './utils/enhanced';
 
@@ -97,7 +96,7 @@ export default async function () {
                 },
                 {
                     test: /\.css$/i,
-                    use: [rspack.CssExtractRspackPlugin.loader, 'css-loader'],
+                    use: [CssExtractRspackPlugin.loader, 'css-loader'],
                     type: 'javascript/auto',
                 },
                 {
@@ -122,7 +121,7 @@ export default async function () {
         },
         plugins: [
             new ProgressPlugin({}),
-            new MiniCssExtractPlugin({
+            new CssExtractRspackPlugin({
                 filename: '[name].css'
             })
         ],
@@ -153,8 +152,8 @@ export default async function () {
 
     // 获取需要生成的打包类型
     const bundleTypes = detectBundleType(packageJson);
-    console.log('bundleTypes',bundleTypes);
-    
+    console.log('bundleTypes', bundleTypes);
+
     if (bundleTypes.includes(BundleType.CJS)) {
         const output = {
             path: path.resolve(process.cwd(), 'dist/cjs'),
