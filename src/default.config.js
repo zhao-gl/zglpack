@@ -131,6 +131,7 @@ export default async function () {
             }),
             new CssExtractRspackPlugin({
                 filename: 'css/[name].[contenthash].css',
+                chunkFilename: 'css/[name].[contenthash].chunk.css',
             })
         ],
         // 调整性能提示阈值
