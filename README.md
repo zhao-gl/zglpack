@@ -6,7 +6,11 @@
 zgl.config.js
 zgl.config.ts
 
-更新记录
-20250815
-1. 新增 less 默认解析
-2. 新增 Vue 打包适配
+命令
+zgl dev 启动开发服务
+-p, --port <port>, 'server port', '3000'
+-o, --open, 'open browser automatically'
+
+zgl build 打包
+-m, --mode <mode>, 'build mode', 'production'
+-l, --lib, 'build as library'
