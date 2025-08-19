@@ -9,7 +9,7 @@ import { detectProjectType, ProjectType, detectBundleType, BundleType } from './
 export default async function () {
     // 检测项目类型
     const projectType = await detectProjectType();
-    
+
     // 读取package.json以确定打包类型
     const packageJsonPath = path.resolve(process.cwd(), 'package.json');
     let packageJson = {};
@@ -92,34 +92,44 @@ export default async function () {
                     },
                 },
                 {
-                    test: /\.css$/,
+                    test: /\.css$/,  // 匹配.css文件
                     use: [
-                        'style-loader',
-                        'builtin:css-loader',
-                    ],
-                },
-                {
-                    test: /\.less$/,
-                    use: [
-                        'style-loader',
-                        'builtin:css-loader',
                         {
-                            loader: 'builtin:less-loader',
+                            loader: 'builtin:mini-css-extract-plugin',  // 提取CSS到单独文件
                             options: {
-                                lessOptions: {
-                                    javascriptEnabled: true,
-                                }
-                            }
+                                filename: 'css/[name].[contenthash].css',
+                                chunkFilename: 'css/[name].[contenthash].chunk.css',
+                            },
                         },
+                        'builtin:css-loader',  // 处理CSS文件
                     ],
-                    type: 'javascript/auto', // 避免 Rspack 默认处理方式冲突
                 },
                 {
-                    test: /\.scss$/,
+                    test: /\.less$/,  // 匹配.less文件
                     use: [
-                        'style-loader',
-                        'builtin:css-loader',
-                        'builtin:sass-loader',
+                        {
+                            loader: 'builtin:mini-css-extract-plugin',  // 提取CSS到单独文件
+                            options: {
+                                filename: 'css/[name].[contenthash].css',
+                                chunkFilename: 'css/[name].[contenthash].chunk.css',
+                            },
+                        },
+                        'builtin:css-loader',  // 处理CSS文件
+                        'builtin:less-loader',  // 处理LESS文件
+                    ],
+                },
+                {
+                    test: /\.scss$/,  // 匹配.scss文件
+                    use: [
+                        {
+                            loader: 'builtin:mini-css-extract-plugin',  // 提取CSS到单独文件
+                            options: {
+                                filename: 'css/[name].[contenthash].css',
+                                chunkFilename: 'css/[name].[contenthash].chunk.css',
+                            },
+                        },
+                        'builtin:css-loader',  // 处理CSS文件
+                        'builtin:sass-loader',  // 处理SCSS文件
                     ],
                 },
                 {
@@ -205,11 +215,11 @@ export default async function () {
             ]
         },
     };
-    
+
     // 获取需要生成的打包类型
     const bundleTypes = detectBundleType(packageJson);
 
-    if(bundleTypes.includes(BundleType.CJS)){
+    if (bundleTypes.includes(BundleType.CJS)) {
         config.output = {
             path: path.resolve(process.cwd(), 'dist/cjs'),
             filename: '[name].js',
@@ -218,7 +228,7 @@ export default async function () {
             },
         };
         // configs.push(config);
-    }else if(bundleTypes.includes(BundleType.ESM)){
+    } else if (bundleTypes.includes(BundleType.ESM)) {
         config.output = {
             path: path.resolve(process.cwd(), 'dist/esm'),
             filename: '[name].js',
@@ -226,7 +236,7 @@ export default async function () {
                 type: 'module',
             },
         };
-    }else if(bundleTypes.includes(BundleType.UMD)){
+    } else if (bundleTypes.includes(BundleType.UMD)) {
         config.output = {
             path: path.resolve(process.cwd(), 'dist/umd'),
             filename: '[name].js',
@@ -235,7 +245,7 @@ export default async function () {
             },
         };
     }
-    
+
     // 为每个配置设置外部依赖
     if (projectType === ProjectType.React) {
         config.externals = {
