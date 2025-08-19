@@ -94,14 +94,14 @@ export default async function () {
                 {
                     test: /\.css$/,
                     use: [
-                        'builtin:style-loader',
+                        'style-loader',
                         'builtin:css-loader',
                     ],
                 },
                 {
                     test: /\.less$/,
                     use: [
-                        'builtin:style-loader',
+                        'style-loader',
                         'builtin:css-loader',
                         {
                             loader: 'builtin:less-loader',
@@ -117,7 +117,7 @@ export default async function () {
                 {
                     test: /\.scss$/,
                     use: [
-                        'builtin:style-loader',
+                        'style-loader',
                         'builtin:css-loader',
                         'builtin:sass-loader',
                     ],
