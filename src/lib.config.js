@@ -1,7 +1,7 @@
 import path from "path";
 import fs from "fs";
 import pkg from '@rspack/core';
-const { ProgressPlugin, SwcJsMinimizerRspackPlugin } = pkg;
+const {rspack, ProgressPlugin, SwcJsMinimizerRspackPlugin } = pkg;
 import { getEntryPoints } from './utils/utils';
 import { detectProjectType, ProjectType, detectBundleType, BundleType } from './utils/enhanced';
 
@@ -92,45 +92,19 @@ export default async function () {
                     },
                 },
                 {
-                    test: /\.css$/,  // 匹配.css文件
-                    use: [
-                        {
-                            loader: 'builtin:mini-css-extract-plugin',  // 提取CSS到单独文件
-                            options: {
-                                filename: 'css/[name].[contenthash].css',
-                                chunkFilename: 'css/[name].[contenthash].chunk.css',
-                            },
-                        },
-                        'builtin:css-loader',  // 处理CSS文件
-                    ],
+                    test: /\.css$/i,
+                    use: [rspack.CssExtractRspackPlugin.loader, 'css-loader'],
+                    type: 'javascript/auto',
                 },
                 {
-                    test: /\.less$/,  // 匹配.less文件
-                    use: [
-                        {
-                            loader: 'builtin:mini-css-extract-plugin',  // 提取CSS到单独文件
-                            options: {
-                                filename: 'css/[name].[contenthash].css',
-                                chunkFilename: 'css/[name].[contenthash].chunk.css',
-                            },
-                        },
-                        'builtin:css-loader',  // 处理CSS文件
-                        'builtin:less-loader',  // 处理LESS文件
-                    ],
+                    test: /\.less$/,
+                    type: 'css/auto',
+                    use: ['less-loader'],
                 },
                 {
-                    test: /\.scss$/,  // 匹配.scss文件
-                    use: [
-                        {
-                            loader: 'builtin:mini-css-extract-plugin',  // 提取CSS到单独文件
-                            options: {
-                                filename: 'css/[name].[contenthash].css',
-                                chunkFilename: 'css/[name].[contenthash].chunk.css',
-                            },
-                        },
-                        'builtin:css-loader',  // 处理CSS文件
-                        'builtin:sass-loader',  // 处理SCSS文件
-                    ],
+                    test: /\.scss$/,
+                    type: 'css/auto',
+                    use: ['sass-loader'],
                 },
                 {
                     test: /\.(png|jpe?g|gif|svg)$/i,
@@ -144,6 +118,7 @@ export default async function () {
         },
         plugins: [
             new ProgressPlugin({}),
+            new rspack.CssExtractRspackPlugin({})
         ],
         // 调整性能提示阈值
         performance: {
