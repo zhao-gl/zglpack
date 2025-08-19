@@ -91,13 +91,21 @@ export default async function () {
                 },
                 {
                     test: /\.less$/,
-                    type: 'css/auto', // 👈
-                    use: ['less-loader'],
+                    use: [
+                        CssExtractRspackPlugin.loader,  // 添加这一行
+                        'css-loader',
+                        'less-loader'
+                    ],
+                    type: 'javascript/auto',  // 修改这行
                 },
                 {
                     test: /\.sass$/,
-                    type: 'css/auto', // 👈
-                    use: ['sass-loader'],
+                    use: [
+                        CssExtractRspackPlugin.loader,  // 添加这一行
+                        'css-loader',
+                        'sass-loader'
+                    ],
+                    type: 'javascript/auto',  // 修改这行
                 },
                 {
                     test: /\.(png|jpe?g|gif|svg)$/i,  // 匹配图片文件
