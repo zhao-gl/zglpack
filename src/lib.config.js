@@ -110,12 +110,33 @@ export default async function () {
                     },
                     {
                         test: /\.css$/i,
-                        use: [CssExtractRspackPlugin.loader, 'css-loader'],
+                        use: [
+                            CssExtractRspackPlugin.loader,
+                            {
+                                loader: 'css-loader',
+                                options: {
+                                    modules: {
+                                        auto: true,
+                                        localIdentName: '[name]__[local]___[hash:base64:5]',
+                                    },
+                                },
+                            },
+                        ],
                         type: 'javascript/auto',
                     },
                     {
                         test: /\.less$/,
                         use: [
+                            CssExtractRspackPlugin.loader,
+                            {
+                                loader: 'css-loader',
+                                options: {
+                                    modules: {
+                                        auto: true,
+                                        localIdentName: '[name]__[local]___[hash:base64:5]',
+                                    },
+                                },
+                            },
                             {
                                 loader: 'less-loader',
                                 options: {
@@ -123,13 +144,24 @@ export default async function () {
                                 }
                             }
                         ],
-                        // 如果你需要将 '*.module.less' 视为 CSS Modules 那么将 'type' 设置为 'css/auto' 否则设置为 'css'
-                        type: 'css/auto',
+                        type: 'javascript/auto',
                     },
                     {
                         test: /\.scss$/,
-                        type: 'css',
-                        use: ['sass-loader'],
+                        use: [
+                            CssExtractRspackPlugin.loader,
+                            {
+                                loader: 'css-loader',
+                                options: {
+                                    modules: {
+                                        auto: true,
+                                        localIdentName: '[name]__[local]___[hash:base64:5]',
+                                    },
+                                },
+                            },
+                            'sass-loader',
+                        ],
+                        type: 'javascript/auto',
                     },
                     {
                         test: /\.(png|jpe?g|gif|svg)$/i,
