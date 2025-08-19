@@ -114,13 +114,53 @@ export default async function () {
                 },
                 {
                     test: /\.less$/,
-                    use: [CssExtractRspackPlugin.loader, 'css-loader', 'less-loader'],
-                    type: 'javascript/auto',  // 修改这行
+                    oneOf: [
+                        {
+                            test: /\.module\.less$/i,
+                            use: [
+                                CssExtractRspackPlugin.loader,
+                                {
+                                    loader: 'css-loader',
+                                    options: {
+                                        modules: {
+                                            localIdentName: '[local]__[hash:base64:5]',
+                                        },
+                                    },
+                                },
+                                'less-loader'
+                            ],
+                            type: 'javascript/auto'
+                        },
+                        {
+                            use: [CssExtractRspackPlugin.loader, 'css-loader', 'less-loader'],
+                            type: 'javascript/auto',
+                        }
+                    ]
                 },
                 {
                     test: /\.sass$/,
-                    use: [CssExtractRspackPlugin.loader, 'css-loader', 'sass-loader'],
-                    type: 'javascript/auto',  // 修改这行
+                    oneOf: [
+                        {
+                            test: /\.module\.sass$/i,
+                            use: [
+                                CssExtractRspackPlugin.loader,
+                                {
+                                    loader: 'css-loader',
+                                    options: {
+                                        modules: {
+                                            localIdentName: '[local]__[hash:base64:5]',
+                                        },
+                                    },
+                                },
+                                'sass-loader'
+                            ],
+                            type: 'javascript/auto'
+                        },
+                        {
+                            use: [CssExtractRspackPlugin.loader, 'css-loader', 'sass-loader'],
+                            type: 'javascript/auto',
+                        }
+                    ]
                 },
                 {
                     test: /\.(png|jpe?g|gif|svg)$/i,  // 匹配图片文件
