@@ -104,17 +104,11 @@ export default async function () {
                     oneOf: [
                         {
                             test: /\.module\.less$/i,
-                            use: [
-                                CssExtractRspackPlugin.loader,
-                                'less-loader'
-                            ],
+                            use: ['less-loader'],
                             type: 'css/module', // 使用CSS模块
                         },
                         {
-                            use: [
-                                CssExtractRspackPlugin.loader,
-                                'less-loader'
-                            ],
+                            use: ['less-loader'],
                             type: 'css', // 使用普通CSS
                         },
                     ]
@@ -124,17 +118,11 @@ export default async function () {
                     oneOf: [
                         {
                             test: /\.module\.sass$/i,
-                            use: [
-                                CssExtractRspackPlugin.loader,
-                                'sass-loader'
-                            ],
+                            use: ['sass-loader'],
                             type: 'css/module', // 使用CSS模块
                         },
                         {
-                            use: [
-                                CssExtractRspackPlugin.loader,
-                                'sass-loader'
-                            ],
+                            use: ['sass-loader'],
                             type: 'css', // 使用普通CSS
                         },
                     ]
@@ -169,10 +157,6 @@ export default async function () {
                 template: './public/index.html',
                 filename: 'index.html'
             }),
-            new CssExtractRspackPlugin({
-                filename: 'css/[name].[contenthash].css',
-                chunkFilename: 'css/[name].[contenthash].chunk.css',
-            })
         ],
         // 调整性能提示阈值
         performance: {
