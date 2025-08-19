@@ -21,13 +21,13 @@ export function detectBundleType(packageJson: any): BundleType[] {
   const bundleTypes: BundleType[] = [];
   // 如果package.json中有exports字段
   if (packageJson.exports) {
-    if(packageJson.exports.browser || packageJson.exports['.browser']){
+    if(packageJson.exports["."].browser || packageJson.exports['.browser']){
       bundleTypes.push(BundleType.UMD);
     }
-    if(packageJson.exports.import || packageJson.exports['.module']){
+    if(packageJson.exports["."].import || packageJson.exports['.module']){
       bundleTypes.push(BundleType.ESM);
     }
-    if(packageJson.exports.require || packageJson.exports['.require']){
+    if(packageJson.exports["."].require || packageJson.exports['.require']){
       bundleTypes.push(BundleType.CJS);
     }
     return bundleTypes

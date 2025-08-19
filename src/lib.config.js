@@ -1,7 +1,7 @@
 import path from "path";
 import fs from "fs";
 import pkg from '@rspack/core';
-const { ProgressPlugin, SwcJsMinimizerRspackPlugin, CssExtractRspackPlugin } = pkg;
+const { ProgressPlugin, SwcJsMinimizerRspackPlugin } = pkg;
 import { getEntryPoints } from './utils/utils';
 import { detectProjectType, ProjectType, detectBundleType, BundleType } from './utils/enhanced';
 
@@ -112,14 +112,14 @@ export default async function () {
                     {
                         test: /\.css$/,
                         use: [
-                            CssExtractRspackPlugin.loader,
+                            'builtin:style-loader',
                             'builtin:css-loader',
                         ],
                     },
                     {
                         test: /\.less$/,
                         use: [
-                            CssExtractRspackPlugin.loader,
+                            'builtin:style-loader',
                             'builtin:css-loader',
                             {
                                 loader: 'builtin:less-loader',
@@ -134,7 +134,7 @@ export default async function () {
                     {
                         test: /\.scss$/,
                         use: [
-                            CssExtractRspackPlugin.loader,
+                            'builtin:style-loader',
                             'builtin:css-loader',
                             'builtin:sass-loader',
                         ],
@@ -151,10 +151,6 @@ export default async function () {
             },
             plugins: [
                 new ProgressPlugin({}),
-                new CssExtractRspackPlugin({
-                    filename: '[name].css',
-                    chunkFilename: '[id].css',
-                }),
             ],
             // 调整性能提示阈值
             performance: {
@@ -309,14 +305,14 @@ export default async function () {
                     {
                         test: /\.css$/,
                         use: [
-                            CssExtractRspackPlugin.loader,
+                            'builtin:style-loader',
                             'builtin:css-loader',
                         ],
                     },
                     {
                         test: /\.less$/,
                         use: [
-                            CssExtractRspackPlugin.loader,
+                            'builtin:style-loader',
                             'builtin:css-loader',
                             {
                                 loader: 'builtin:less-loader',
@@ -331,7 +327,7 @@ export default async function () {
                     {
                         test: /\.scss$/,
                         use: [
-                            CssExtractRspackPlugin.loader,
+                            'builtin:style-loader',
                             'builtin:css-loader',
                             'builtin:sass-loader',
                         ],
@@ -348,10 +344,6 @@ export default async function () {
             },
             plugins: [
                 new ProgressPlugin({}),
-                new CssExtractRspackPlugin({
-                    filename: '[name].css',
-                    chunkFilename: '[id].css',
-                }),
             ],
             // 调整性能提示阈值
             performance: {
@@ -506,14 +498,14 @@ export default async function () {
                     {
                         test: /\.css$/,
                         use: [
-                            CssExtractRspackPlugin.loader,
+                            'builtin:style-loader',
                             'builtin:css-loader',
                         ],
                     },
                     {
                         test: /\.less$/,
                         use: [
-                            CssExtractRspackPlugin.loader,
+                            'builtin:style-loader',
                             'builtin:css-loader',
                             {
                                 loader: 'builtin:less-loader',
@@ -528,7 +520,7 @@ export default async function () {
                     {
                         test: /\.scss$/,
                         use: [
-                            CssExtractRspackPlugin.loader,
+                            'builtin:style-loader',
                             'builtin:css-loader',
                             'builtin:sass-loader',
                         ],
@@ -545,10 +537,6 @@ export default async function () {
             },
             plugins: [
                 new ProgressPlugin({}),
-                new CssExtractRspackPlugin({
-                    filename: '[name].css',
-                    chunkFilename: '[id].css',
-                }),
             ],
             // 调整性能提示阈值
             performance: {
