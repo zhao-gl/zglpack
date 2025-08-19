@@ -1,7 +1,7 @@
 import path from "path";
 import fs from "fs";
 import pkg from '@rspack/core';
-import { CssExtractRspackPlugin } from '@rspack/core';
+// import { CssExtractRspackPlugin } from '@rspack/core';
 const { ProgressPlugin, SwcJsMinimizerRspackPlugin } = pkg;
 import { getEntryPoints } from './utils/utils';
 import { detectProjectType, ProjectType, detectBundleType, BundleType } from './utils/enhanced';
@@ -166,7 +166,7 @@ export default async function () {
             },
             plugins: [
                 new ProgressPlugin({}),
-                new CssExtractRspackPlugin({})
+                // new CssExtractRspackPlugin({})
             ],
             // 调整性能提示阈值
             performance: {
@@ -329,7 +329,7 @@ export default async function () {
             },
             plugins: [
                 new ProgressPlugin({}),
-                new CssExtractRspackPlugin({})
+                // new CssExtractRspackPlugin({})
             ],
             // 调整性能提示阈值
             performance: {
@@ -490,7 +490,7 @@ export default async function () {
             },
             plugins: [
                 new ProgressPlugin({}),
-                new CssExtractRspackPlugin({})
+                // new CssExtractRspackPlugin({})
             ],
             // 调整性能提示阈值
             performance: {
