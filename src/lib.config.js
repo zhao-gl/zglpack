@@ -27,6 +27,9 @@ export default async function () {
         mode: 'production',
         entry: getEntryPoints(),
         output: {},
+        experiments: {
+            css: true,
+        },
         devtool: false,
         resolve: {
             extensions: ['.tsx', '.ts', '.jsx', '.js', '.scss', '.less', '.vue'],

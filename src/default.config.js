@@ -12,6 +12,9 @@ export default async function () {
     mode: 'production',
     entry: getEntryPoints(),
     output: {
+      experiments: {
+        css: true,
+      },
       path: path.resolve(process.cwd(), 'dist'),
       filename: 'js/[name].[contenthash].js', // 使用contenthash以实现更好的缓存策略
       assetModuleFilename: '[path][name].[contenthash][ext]',
