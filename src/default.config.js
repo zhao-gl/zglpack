@@ -86,26 +86,18 @@ export default async function () {
                 },
                 {
                     test: /\.css$/,  // 匹配.css文件
-                    use: [CssExtractRspackPlugin.loader, 'css-loader'],
-                    type: 'javascript/auto',
+                    use: [CssExtractRspackPlugin.loader],
+                    type: 'css',
                 },
                 {
                     test: /\.less$/,
-                    use: [
-                        CssExtractRspackPlugin.loader,  // 添加这一行
-                        'css-loader',
-                        'less-loader'
-                    ],
-                    type: 'javascript/auto',  // 修改这行
+                    use: [CssExtractRspackPlugin.loader],
+                    type: 'css',  // 修改这行
                 },
                 {
                     test: /\.sass$/,
-                    use: [
-                        CssExtractRspackPlugin.loader,  // 添加这一行
-                        'css-loader',
-                        'sass-loader'
-                    ],
-                    type: 'javascript/auto',  // 修改这行
+                    use: [CssExtractRspackPlugin.loader],
+                    type: 'css',  // 修改这行
                 },
                 {
                     test: /\.(png|jpe?g|gif|svg)$/i,  // 匹配图片文件
