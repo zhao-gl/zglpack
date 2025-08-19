@@ -92,12 +92,12 @@ export default async function () {
                 {
                     test: /\.less$/,
                     use: [CssExtractRspackPlugin.loader],
-                    type: 'javascript/auto',  // 修改这行
+                    type: 'css',  // 修改这行
                 },
                 {
                     test: /\.sass$/,
                     use: [CssExtractRspackPlugin.loader],
-                    type: 'javascript/auto',  // 修改这行
+                    type: 'css',  // 修改这行
                 },
                 {
                     test: /\.(png|jpe?g|gif|svg)$/i,  // 匹配图片文件
