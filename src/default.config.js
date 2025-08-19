@@ -114,12 +114,12 @@ export default async function () {
                 },
                 {
                     test: /\.less$/,
-                    use: [CssExtractRspackPlugin.loader, 'less-loader'],
+                    use: [CssExtractRspackPlugin.loader, 'css-loader', 'less-loader'],
                     type: 'javascript/auto',  // 修改这行
                 },
                 {
                     test: /\.sass$/,
-                    use: [CssExtractRspackPlugin.loader, 'sass-loader'],
+                    use: [CssExtractRspackPlugin.loader, 'css-loader', 'sass-loader'],
                     type: 'javascript/auto',  // 修改这行
                 },
                 {
