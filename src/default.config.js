@@ -85,9 +85,32 @@ export default async function () {
                     },
                 },
                 {
+
                     test: /\.css$/,  // 匹配.css文件
-                    use: [CssExtractRspackPlugin.loader,'css-loader'],
-                    type: 'javascript/auto',
+                    oneOf: [
+                        // 处理 CSS Modules（.module.css）
+                        {
+                            test: /\.module\.css$/i,
+                            use: [
+                                CssExtractRspackPlugin.loader,
+                                {
+                                    loader: 'css-loader',
+                                    options: {
+                                        modules: {
+                                            // 生成哈希类名（关键配置）
+                                            localIdentName: '[local]__[hash:base64:5]', // 格式：原类名__哈希值
+                                        },
+                                    },
+                                },
+                            ],
+                            type: 'css/auto', // 启用模块化
+                        },
+                        // 处理普通 CSS（非 .module.css）
+                        {
+                            use: [CssExtractRspackPlugin.loader, 'css-loader'],
+                            type: 'css', // 全局样式，不生成哈希
+                        },
+                    ],
                 },
                 {
                     test: /\.less$/,
