@@ -110,33 +110,34 @@ export default async function () {
                     },
                     {
                         test: /\.css$/i,
-                        use: [
-                            CssExtractRspackPlugin.loader,
+                        oneOf: [
+                            // 处理 CSS Modules（.module.css）
                             {
-                                loader: 'css-loader',
-                                options: {
-                                    modules: {
-                                        auto: true,
-                                        localIdentName: '[name]__[local]___[hash:base64:5]',
+                                test: /\.module\.css$/i,
+                                use: [
+                                    CssExtractRspackPlugin.loader,
+                                    {
+                                        loader: 'css-loader',
+                                        options: {
+                                            modules: {
+                                                // 生成哈希类名（关键配置）
+                                                localIdentName: '[local]__[hash:base64:5]', // 格式：原类名__哈希值
+                                            },
+                                        },
                                     },
-                                },
+                                ],
+                                type: 'css/auto', // 启用模块化
+                            },
+                            // 处理普通 CSS（非 .module.css）
+                            {
+                                use: [CssExtractRspackPlugin.loader, 'css-loader'],
+                                type: 'css', // 全局样式，不生成哈希
                             },
                         ],
-                        type: 'javascript/auto',
                     },
                     {
                         test: /\.less$/,
                         use: [
-                            CssExtractRspackPlugin.loader,
-                            {
-                                loader: 'css-loader',
-                                options: {
-                                    modules: {
-                                        auto: true,
-                                        localIdentName: '[name]__[local]___[hash:base64:5]',
-                                    },
-                                },
-                            },
                             {
                                 loader: 'less-loader',
                                 options: {
@@ -144,24 +145,13 @@ export default async function () {
                                 }
                             }
                         ],
-                        type: 'javascript/auto',
+                        // 如果你需要将 '*.module.less' 视为 CSS Modules 那么将 'type' 设置为 'css/auto' 否则设置为 'css'
+                        type: 'css/auto',
                     },
                     {
                         test: /\.scss$/,
-                        use: [
-                            CssExtractRspackPlugin.loader,
-                            {
-                                loader: 'css-loader',
-                                options: {
-                                    modules: {
-                                        auto: true,
-                                        localIdentName: '[name]__[local]___[hash:base64:5]',
-                                    },
-                                },
-                            },
-                            'sass-loader',
-                        ],
-                        type: 'javascript/auto',
+                        type: 'css',
+                        use: ['sass-loader'],
                     },
                     {
                         test: /\.(png|jpe?g|gif|svg)$/i,
@@ -285,8 +275,30 @@ export default async function () {
                     },
                     {
                         test: /\.css$/i,
-                        use: [CssExtractRspackPlugin.loader, 'css-loader'],
-                        type: 'javascript/auto',
+                        oneOf: [
+                            // 处理 CSS Modules（.module.css）
+                            {
+                                test: /\.module\.css$/i,
+                                use: [
+                                    CssExtractRspackPlugin.loader,
+                                    {
+                                        loader: 'css-loader',
+                                        options: {
+                                            modules: {
+                                                // 生成哈希类名（关键配置）
+                                                localIdentName: '[local]__[hash:base64:5]', // 格式：原类名__哈希值
+                                            },
+                                        },
+                                    },
+                                ],
+                                type: 'css/auto', // 启用模块化
+                            },
+                            // 处理普通 CSS（非 .module.css）
+                            {
+                                use: [CssExtractRspackPlugin.loader, 'css-loader'],
+                                type: 'css', // 全局样式，不生成哈希
+                            },
+                        ],
                     },
                     {
                         test: /\.less$/,
@@ -427,8 +439,30 @@ export default async function () {
                     },
                     {
                         test: /\.css$/i,
-                        use: [CssExtractRspackPlugin.loader, 'css-loader'],
-                        type: 'javascript/auto',
+                        oneOf: [
+                            // 处理 CSS Modules（.module.css）
+                            {
+                                test: /\.module\.css$/i,
+                                use: [
+                                    CssExtractRspackPlugin.loader,
+                                    {
+                                        loader: 'css-loader',
+                                        options: {
+                                            modules: {
+                                                // 生成哈希类名（关键配置）
+                                                localIdentName: '[local]__[hash:base64:5]', // 格式：原类名__哈希值
+                                            },
+                                        },
+                                    },
+                                ],
+                                type: 'css/auto', // 启用模块化
+                            },
+                            // 处理普通 CSS（非 .module.css）
+                            {
+                                use: [CssExtractRspackPlugin.loader, 'css-loader'],
+                                type: 'css', // 全局样式，不生成哈希
+                            },
+                        ],
                     },
                     {
                         test: /\.less$/,
