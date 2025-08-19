@@ -28,17 +28,17 @@ export default async function () {
     // 获取需要生成的打包类型
     const bundleTypes = detectBundleType(packageJson);
     console.log('bundleTypes', bundleTypes);
-    // CommonJS 配置
-    if (bundleTypes.includes(BundleType.CJS)) {
+    // ESM 配置
+    if (bundleTypes.includes(BundleType.ESM)) {
         const config = {
             // CommonJS 配置
             mode: 'production',
             entry: getEntryPoints(),
             output: {
-                path: path.resolve(process.cwd(), 'dist/cjs'),
+                path: path.resolve(process.cwd(), 'dist/esm'),
                 filename: '[name].js',
                 library: {
-                    type: 'commonjs',
+                    type: 'module',
                 },
             },
             devtool: false,
@@ -69,6 +69,9 @@ export default async function () {
                                         react: {
                                             runtime: 'automatic',
                                         },
+                                    },
+                                    module: {
+                                        type: 'module', // 默认按 CJS 转换（后续会动态覆盖）
                                     },
                                 },
                             },
@@ -193,17 +196,17 @@ export default async function () {
         };
         configs.push(config);
     }
-    // ESM 配置
-    if (bundleTypes.includes(BundleType.ESM)) {
+    // CommonJS 配置
+    if (bundleTypes.includes(BundleType.CJS)) {
         const config = {
             // CommonJS 配置
             mode: 'production',
             entry: getEntryPoints(),
             output: {
-                path: path.resolve(process.cwd(), 'dist/esm'),
+                path: path.resolve(process.cwd(), 'dist/cjs'),
                 filename: '[name].js',
                 library: {
-                    type: 'module',
+                    type: 'commonjs',
                 },
             },
             devtool: false,
