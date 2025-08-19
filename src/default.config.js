@@ -91,24 +91,11 @@ export default async function () {
                         // 处理 CSS Modules（.module.css）
                         {
                             test: /\.module\.css$/i,
-                            use: [
-                                CssExtractRspackPlugin.loader,
-                                {
-                                    loader: 'css-loader',
-                                    options: {
-                                        modules: {
-                                            // 生成哈希类名（关键配置）
-                                            localIdentName: '[local]__[hash:base64:5]', // 格式：原类名__哈希值
-                                        },
-                                    },
-                                },
-                            ],
-                            type: 'css/auto', // 启用模块化
+                            type: 'css/module', // 使用内置CSS模块支持
                         },
                         // 处理普通 CSS（非 .module.css）
                         {
-                            use: [CssExtractRspackPlugin.loader, 'css-loader'],
-                            type: 'javascript/auto', // 全局样式，不生成哈希
+                            type: 'css'
                         },
                     ],
                 },
@@ -119,22 +106,17 @@ export default async function () {
                             test: /\.module\.less$/i,
                             use: [
                                 CssExtractRspackPlugin.loader,
-                                {
-                                    loader: 'css-loader',
-                                    options: {
-                                        modules: {
-                                            localIdentName: '[local]__[hash:base64:5]',
-                                        },
-                                    },
-                                },
                                 'less-loader'
                             ],
-                            type: 'javascript/auto'
+                            type: 'css/module', // 使用CSS模块
                         },
                         {
-                            use: [CssExtractRspackPlugin.loader, 'css-loader', 'less-loader'],
-                            type: 'javascript/auto',
-                        }
+                            use: [
+                                CssExtractRspackPlugin.loader,
+                                'less-loader'
+                            ],
+                            type: 'css', // 使用普通CSS
+                        },
                     ]
                 },
                 {
@@ -144,22 +126,17 @@ export default async function () {
                             test: /\.module\.sass$/i,
                             use: [
                                 CssExtractRspackPlugin.loader,
-                                {
-                                    loader: 'css-loader',
-                                    options: {
-                                        modules: {
-                                            localIdentName: '[local]__[hash:base64:5]',
-                                        },
-                                    },
-                                },
                                 'sass-loader'
                             ],
-                            type: 'javascript/auto'
+                            type: 'css/module', // 使用CSS模块
                         },
                         {
-                            use: [CssExtractRspackPlugin.loader, 'css-loader', 'sass-loader'],
-                            type: 'javascript/auto',
-                        }
+                            use: [
+                                CssExtractRspackPlugin.loader,
+                                'sass-loader'
+                            ],
+                            type: 'css', // 使用普通CSS
+                        },
                     ]
                 },
                 {
