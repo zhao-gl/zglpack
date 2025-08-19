@@ -16,6 +16,9 @@ export default async function () {
             path: path.resolve(process.cwd(), 'dist'),
             filename: 'js/[name].[contenthash].js', // 使用contenthash以实现更好的缓存策略
             assetModuleFilename: '[path][name].[contenthash][ext]',
+            // CSS文件输出配置
+            cssFilename: 'css/[name].[contenthash].css',        // 入口CSS文件命名
+            cssChunkFilename: 'css/[name].[contenthash].chunk.css', // 异步CSS文件命名
             clean: true, // 在生成文件之前清空输出目录
         },
         experiments: {
