@@ -100,12 +100,14 @@ export default async function () {
                 {
                     test: /\.less$/,
                     use: [
-                        {
-                            loader: 'less-loader',
+                        CssExtractRspackPlugin.loader,
+                        'css-loader', // 解析 CSS
+                        { 
+                            loader: 'less-loader', 
                             options: {
-                                // ...
-                            },
-                        },
+                                lessOptions: { javascriptEnabled: true }
+                            } 
+                        }
                     ],
                     // 如果你需要将 '*.module.less' 视为 CSS Modules 那么将 'type' 设置为 'css/auto' 否则设置为 'css'
                     type: 'css/auto',
@@ -127,7 +129,10 @@ export default async function () {
         },
         plugins: [
             new ProgressPlugin({}),
-            new CssExtractRspackPlugin({})
+            new CssExtractRspackPlugin({
+                filename: 'css/[name].[contenthash:8].css',
+                chunkFilename: 'css/[name].[contenthash:8].chunk.css',
+            })
         ],
         // 调整性能提示阈值
         performance: {
