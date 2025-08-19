@@ -2,6 +2,7 @@ import path from "path";
 import fs from "fs";
 import pkg from '@rspack/core';
 const { rspack, ProgressPlugin, SwcJsMinimizerRspackPlugin } = pkg;
+import MiniCssExtractPlugin from '@rspack/plugin-mini-css-extract';
 import { getEntryPoints } from './utils/utils';
 import { detectProjectType, ProjectType, detectBundleType, BundleType } from './utils/enhanced';
 
@@ -121,7 +122,9 @@ export default async function () {
         },
         plugins: [
             new ProgressPlugin({}),
-            new rspack.CssExtractRspackPlugin({})
+            new MiniCssExtractPlugin({
+                filename: '[name].css'
+            })
         ],
         // 调整性能提示阈值
         performance: {
@@ -129,53 +132,7 @@ export default async function () {
             maxAssetSize: 200000, // 单个资源限制200KB
         },
         optimization: {
-            splitChunks: {
-                chunks: 'all',
-                minSize: 20000, // 最小分割尺寸（20KB）
-                maxSize: 200000, // 最大分割尺寸（200KB）
-                minChunks: 1,
-                maxAsyncRequests: 20, // 异步请求的最大数量
-                maxInitialRequests: 20, // 初始请求的最大数量
-                cacheGroups: {
-                    // 将node_modules中的第三方库打包成一个单独的chunk
-                    vendor: {
-                        test: /[/]node_modules[/]/,
-                        name(module) {
-                            // 提取包名（如 node_modules/react → react）
-                            const packageName = module.context.match(/[/]node_modules[/](.*?)([/]|$)/)[1];
-                            // 替换特殊字符，避免影响文件名
-                            return `vendors.${packageName.replace('@', '')}`;
-                        },
-                        priority: 10,
-                        reuseExistingChunk: true,
-                        minSize: 20000, // 最小分割尺寸（20KB）
-                        maxSize: 150000, // 最大分割尺寸（150KB）
-                        enforce: true // 强制分割，即使小于minSize
-                    },
-                    // 分割共享代码
-                    common: {
-                        name: 'common',
-                        minChunks: 2, // 被引用至少2次的代码
-                        priority: 5,
-                        reuseExistingChunk: true,
-                        minSize: 10000, // 最小分割尺寸（10KB）
-                        maxSize: 100000, // 最大分割尺寸（100KB）
-                        enforce: true // 强制分割，即使小于minSize
-                    },
-                    // 为大型第三方库创建单独的chunks
-                    vendorLarge: {
-                        test: /[/]node_modules[/]/,
-                        name(module) {
-                            const packageName = module.context.match(/[/]node_modules[/](.*?)([/]|$)/)[1];
-                            return `vendors.large.${packageName.replace('@', '')}`;
-                        },
-                        priority: 20, // 更高优先级
-                        minSize: 100000, // 100KB以上的模块
-                        maxSize: 300000, // 最大300KB
-                        chunks: 'all'
-                    }
-                }
-            },
+            splitChunks: false,
             minimizer: [
                 new SwcJsMinimizerRspackPlugin({
                     // 生产环境启用压缩
@@ -206,7 +163,9 @@ export default async function () {
                 type: 'commonjs',
             },
         };
-        configs.push(Object.assign({}, config, output));
+        const configCopy = JSON.parse(JSON.stringify(config));
+        configCopy.output = output;
+        configs.push(configCopy);
     }
     if (bundleTypes.includes(BundleType.ESM)) {
         const output = {
@@ -216,7 +175,9 @@ export default async function () {
                 type: 'module',
             },
         };
-        configs.push(Object.assign({}, config, output));
+        const configCopy = JSON.parse(JSON.stringify(config));
+        configCopy.output = output;
+        configs.push(configCopy);
     }
     if (bundleTypes.includes(BundleType.UMD)) {
         const output = {
@@ -226,7 +187,9 @@ export default async function () {
                 type: 'umd',
             },
         };
-        configs.push(Object.assign({}, config, output));
+        const configCopy = JSON.parse(JSON.stringify(config));
+        configCopy.output = output;
+        configs.push(configCopy);
     }
 
     // 为每个配置设置外部依赖
