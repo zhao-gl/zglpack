@@ -49,6 +49,11 @@ export default async function () {
             },
             experiments: {
                 css: true,
+                outputModule: true
+            },
+            environment: {
+                module: true, // 启用ESM支持
+                dynamicImport: true, // 启用动态导入
             },
             externals: {}, // 外部依赖，将在下面根据项目类型填充
             module: {
@@ -173,21 +178,22 @@ export default async function () {
             },
             optimization: {
                 splitChunks: false,
-                // minimizer: [
-                //     new SwcJsMinimizerRspackPlugin({
-                //         // 生产环境启用压缩
-                //         include: /\.m?js$/i,
-                //         minimizerOptions: {
-                //             compress: {
-                //                 drop_console: true, // 移除console
-                //                 drop_debugger: true, // 移除debugger
-                //             },
-                //             mangle: {
-                //                 toplevel: true,
-                //             }
-                //         }
-                //     })
-                // ]
+                minimizer: [
+                    new SwcJsMinimizerRspackPlugin({
+                        // 生产环境启用压缩
+                        include: /\.m?js$/i,
+                        minimizerOptions: {
+                            compress: {
+                                drop_console: true, // 移除console
+                                drop_debugger: true, // 移除debugger
+                            },
+                            mangle: {
+                                toplevel: true,
+                            },
+                            module: true
+                        }
+                    })
+                ]
             },
         };
         configs.push(config);
