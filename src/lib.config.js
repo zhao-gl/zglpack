@@ -95,28 +95,28 @@ export default async function () {
                 {
                     test: /\.css$/i,
                     use: [CssExtractRspackPlugin.loader, 'css-loader'],
-                    // type: 'javascript/auto',
+                    type: 'javascript/auto',
                 },
-                {
-                    test: /\.less$/,
-                    use: [
-                        CssExtractRspackPlugin.loader,
-                        'css-loader', // 解析 CSS
-                        { 
-                            loader: 'less-loader', 
-                            options: {
-                                lessOptions: { javascriptEnabled: true }
-                            } 
-                        }
-                    ],
-                    // 如果你需要将 '*.module.less' 视为 CSS Modules 那么将 'type' 设置为 'css/auto' 否则设置为 'css'
-                    type: 'css/auto',
-                },
-                {
-                    test: /\.scss$/,
-                    type: 'css',
-                    use: ['sass-loader'],
-                },
+                // {
+                //     test: /\.less$/,
+                //     use: [
+                //         CssExtractRspackPlugin.loader,
+                //         'css-loader', // 解析 CSS
+                //         { 
+                //             loader: 'less-loader', 
+                //             options: {
+                //                 lessOptions: { javascriptEnabled: true }
+                //             } 
+                //         }
+                //     ],
+                //     // 如果你需要将 '*.module.less' 视为 CSS Modules 那么将 'type' 设置为 'css/auto' 否则设置为 'css'
+                //     type: 'css/auto',
+                // },
+                // {
+                //     test: /\.scss$/,
+                //     type: 'css',
+                //     use: ['sass-loader'],
+                // },
                 {
                     test: /\.(png|jpe?g|gif|svg)$/i,
                     type: 'asset/inline',
@@ -129,10 +129,10 @@ export default async function () {
         },
         plugins: [
             new ProgressPlugin({}),
-            new CssExtractRspackPlugin({
-                filename: 'css/[name].[contenthash:8].css',
-                chunkFilename: 'css/[name].[contenthash:8].chunk.css',
-            })
+            // new CssExtractRspackPlugin({
+            //     filename: 'css/[name].[contenthash:8].css',
+            //     chunkFilename: 'css/[name].[contenthash:8].chunk.css',
+            // })
         ],
         // 调整性能提示阈值
         performance: {
