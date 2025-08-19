@@ -20,7 +20,7 @@ export default async function () {
             console.warn('Failed to parse package.json:', error);
         }
     }
-    
+    // const configs = [];
     // 根据package.json的type字段和exports字段确定打包配置
     const config = {
         // CommonJS 配置
@@ -94,18 +94,17 @@ export default async function () {
                 {
                     test: /\.css$/,
                     use: [
-                        'style-loader',
-                        'postcss-loader',
-                        'css-loader',
+                        'builtin:style-loader',
+                        'builtin:css-loader',
                     ],
                 },
                 {
                     test: /\.less$/,
                     use: [
-                        'style-loader',
-                        'css-loader',
+                        'builtin:style-loader',
+                        'builtin:css-loader',
                         {
-                            loader: 'less-loader',
+                            loader: 'builtin:less-loader',
                             options: {
                                 lessOptions: {
                                     javascriptEnabled: true,
@@ -118,10 +117,9 @@ export default async function () {
                 {
                     test: /\.scss$/,
                     use: [
-                        'style-loader',
-                        'postcss-loader',
-                        'css-loader',
-                        'sass-loader',
+                        'builtin:style-loader',
+                        'builtin:css-loader',
+                        'builtin:sass-loader',
                     ],
                 },
                 {
@@ -219,6 +217,7 @@ export default async function () {
                 type: 'commonjs',
             },
         };
+        // configs.push(config);
     }else if(bundleTypes.includes(BundleType.ESM)){
         config.output = {
             path: path.resolve(process.cwd(), 'dist/esm'),
