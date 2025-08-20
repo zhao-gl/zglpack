@@ -56,7 +56,14 @@ export default async function () {
                 css: true,
                 outputModule: true
             },
-            externals: {}, // 外部依赖，将在下面根据项目类型填充
+            externals: projectType === ProjectType.React ? {
+                'react': 'react',
+                'react-dom': 'react-dom',
+                'react/jsx-runtime': 'react/jsx-runtime',
+                'react/jsx-dev-runtime': 'react/jsx-dev-runtime'
+            } : projectType === ProjectType.Vue ? {
+                'vue': 'vue'
+            } : {},
             module: {
                 rules: [
                     {
@@ -232,7 +239,14 @@ export default async function () {
             experiments: {
                 css: true,
             },
-            externals: {}, // 外部依赖，将在下面根据项目类型填充
+            externals: projectType === ProjectType.React ? {
+                'react': 'react',
+                'react-dom': 'react-dom',
+                'react/jsx-runtime': 'react/jsx-runtime',
+                'react/jsx-dev-runtime': 'react/jsx-dev-runtime'
+            } : projectType === ProjectType.Vue ? {
+                'vue': 'vue'
+            } : {}, // 外部依赖，将在下面根据项目类型填充
             module: {
                 rules: [
                     {
@@ -406,7 +420,39 @@ export default async function () {
             experiments: {
                 css: true,
             },
-            externals: {}, // 外部依赖，将在下面根据项目类型填充
+            externals: projectType === ProjectType.React ? {
+                'react': {
+                    commonjs: 'react',
+                    commonjs2: 'react',
+                    amd: 'react',
+                    root: 'React'
+                },
+                'react-dom': {
+                    commonjs: 'react-dom',
+                    commonjs2: 'react-dom',
+                    amd: 'react-dom',
+                    root: 'ReactDOM'
+                },
+                'react/jsx-runtime': {
+                    commonjs: 'react/jsx-runtime',
+                    commonjs2: 'react/jsx-runtime',
+                    amd: 'react/jsx-runtime',
+                    root: 'ReactJsxRuntime'
+                },
+                'react/jsx-dev-runtime': {
+                    commonjs: 'react/jsx-dev-runtime',
+                    commonjs2: 'react/jsx-dev-runtime',
+                    amd: 'react/jsx-dev-runtime',
+                    root: 'ReactJsxDevRuntime'
+                }
+            } : projectType === ProjectType.Vue ? {
+                'vue': {
+                    commonjs: 'vue',
+                    commonjs2: 'vue',
+                    amd: 'vue',
+                    root: 'Vue'
+                }
+            } : {},
             module: {
                 rules: [
                     {
@@ -560,50 +606,50 @@ export default async function () {
     }
 
     // 为每个配置设置外部依赖
-    configs.forEach(cfg => {
-        if (projectType === ProjectType.React) {
-            if(cfg.output.library.type === 'module' || cfg.output.library.type === 'commonjs'){
-                cfg.externals = {
-                    'react': 'react',
-                    'react-dom': 'react-dom',
-                    'react/jsx-runtime': 'react/jsx-runtime',
-                    'react/jsx-dev-runtime': 'react/jsx-dev-runtime'
-                };
-            }else{
-                cfg.externals = {
-                    'react': {
-                        commonjs: 'react',
-                        commonjs2: 'react',
-                        amd: 'react',
-                        root: 'React'
-                    },
-                    'react-dom': {
-                        commonjs: 'react-dom',
-                        commonjs2: 'react-dom',
-                        amd: 'react-dom',
-                        root: 'ReactDOM'
-                    }
-                };
-            }
-        } else if (projectType === ProjectType.Vue) {
-            if(cfg.output.library.type === 'module' || cfg.output.library.type === 'commonjs'){
-                cfg.externals = {
-                    'vue': 'vue'
-                };
-            }else{
-                cfg.externals = {
-                    'vue': {
-                        commonjs: 'vue',
-                        commonjs2: 'vue',
-                        amd: 'vue',
-                        root: 'Vue'
-                    }
-                };
-            }
-        } else {
-            cfg.externals = {};
-        }
-    });
+    // configs.forEach(cfg => {
+    //     if (projectType === ProjectType.React) {
+    //         if(cfg.output.library.type === 'module' || cfg.output.library.type === 'commonjs'){
+    //             cfg.externals = {
+    //                 'react': 'react',
+    //                 'react-dom': 'react-dom',
+    //                 'react/jsx-runtime': 'react/jsx-runtime',
+    //                 'react/jsx-dev-runtime': 'react/jsx-dev-runtime'
+    //             };
+    //         }else{
+    //             cfg.externals = {
+    //                 'react': {
+    //                     commonjs: 'react',
+    //                     commonjs2: 'react',
+    //                     amd: 'react',
+    //                     root: 'React'
+    //                 },
+    //                 'react-dom': {
+    //                     commonjs: 'react-dom',
+    //                     commonjs2: 'react-dom',
+    //                     amd: 'react-dom',
+    //                     root: 'ReactDOM'
+    //                 }
+    //             };
+    //         }
+    //     } else if (projectType === ProjectType.Vue) {
+    //         if(cfg.output.library.type === 'module' || cfg.output.library.type === 'commonjs'){
+    //             cfg.externals = {
+    //                 'vue': 'vue'
+    //             };
+    //         }else{
+    //             cfg.externals = {
+    //                 'vue': {
+    //                     commonjs: 'vue',
+    //                     commonjs2: 'vue',
+    //                     amd: 'vue',
+    //                     root: 'Vue'
+    //                 }
+    //             };
+    //         }
+    //     } else {
+    //         cfg.externals = {};
+    //     }
+    // });
 
     return configs;
 }
