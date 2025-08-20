@@ -184,9 +184,22 @@ export default async function () {
                             compress: {
                                 drop_console: true, // 移除console
                                 drop_debugger: true, // 移除debugger
+                                pure_funcs: ['console.log', 'console.info', 'console.warn'], // 移除特定函数调用
+                                passes: 2, // 压缩遍历次数
+                                comparisons: true,
+                                conditionals: true,
+                                dead_code: true,
+                                evaluate: true,
+                                if_return: true,
+                                join_vars: true,
+                                negate_iife: true,
+                                side_effects: true
                             },
                             mangle: {
                                 toplevel: true,
+                            },
+                            format: {
+                                comments: false // 移除注释
                             },
                             module: true
                         }
@@ -347,9 +360,22 @@ export default async function () {
                             compress: {
                                 drop_console: true, // 移除console
                                 drop_debugger: true, // 移除debugger
+                                pure_funcs: ['console.log', 'console.info', 'console.warn'], // 移除特定函数调用
+                                passes: 2, // 压缩遍历次数
+                                comparisons: true,
+                                conditionals: true,
+                                dead_code: true,
+                                evaluate: true,
+                                if_return: true,
+                                join_vars: true,
+                                negate_iife: true,
+                                side_effects: true
                             },
                             mangle: {
                                 toplevel: true,
+                            },
+                            format: {
+                                comments: false // 移除注释
                             }
                         }
                     })
@@ -508,9 +534,22 @@ export default async function () {
                             compress: {
                                 drop_console: true, // 移除console
                                 drop_debugger: true, // 移除debugger
+                                pure_funcs: ['console.log', 'console.info', 'console.warn'], // 移除特定函数调用
+                                passes: 2, // 压缩遍历次数
+                                comparisons: true,
+                                conditionals: true,
+                                dead_code: true,
+                                evaluate: true,
+                                if_return: true,
+                                join_vars: true,
+                                negate_iife: true,
+                                side_effects: true
                             },
                             mangle: {
                                 toplevel: true,
+                            },
+                            format: {
+                                comments: false // 移除注释
                             }
                         }
                     })
@@ -522,7 +561,6 @@ export default async function () {
 
     // 为每个配置设置外部依赖
     configs.forEach(cfg => {
-        console.log('projectType:', projectType)
         if (projectType === ProjectType.React) {
             if(cfg.output.library.type === 'module' || cfg.output.library.type === 'commonjs'){
                 cfg.externals = {

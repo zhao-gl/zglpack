@@ -4,6 +4,7 @@ import commonjs from '@rollup/plugin-commonjs';
 import json from "@rollup/plugin-json";
 import shebang from 'rollup-plugin-preserve-shebang';
 import del from 'rollup-plugin-delete';
+import terser from '@rollup/plugin-terser';
 
 export default {
   input: {
@@ -36,7 +37,22 @@ export default {
       tsconfig: 'tsconfig.json',
       useTsconfigDeclarationDir: true // 明确告诉插件使用 tsconfig 中的 declarationDir
     }),
-    shebang()
+    shebang(),
+    terser({
+      compress: {
+        drop_console: true,    // 移除 console.*
+        drop_debugger: true,   // 移除 debugger 语句
+        pure_funcs: ['console.log', 'console.info', 'console.debug'] // 移除指定的函数调用
+      },
+      mangle: {
+        properties: {
+          regex: /^__/,
+        }
+      },
+      output: {
+        comments: false // 移除注释
+      }
+    })
   ],
   external: [
     '@rspack/core',
