@@ -49,9 +49,5 @@
   ],
   "engines": {
     "node": ">=16.x"
-  },
-  "peerDependencies": {
-    "@rspack/cli": "^1.4.11",
-    "@rspack/core": "^1.4.11"
   }
 }
