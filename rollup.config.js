@@ -52,5 +52,8 @@ export default {
     'ts-node',
     'vue-loader',
     'style-loader',
+    'react',
+    'react-dom',
+    'vue',
   ],
 };

@@ -524,14 +524,42 @@ export default async function () {
     configs.forEach(cfg => {
         console.log('projectType:', projectType)
         if (projectType === ProjectType.React) {
-            cfg.externals = {
-                'react': 'react',
-                'react-dom': 'react-dom'
-            };
+            if(cfg.library.type === 'module' || cfg.library.type === 'commonjs'){
+                cfg.externals = {
+                    'react': 'react',
+                    'react-dom': 'react-dom'
+                };
+            }else{
+                cfg.externals = {
+                    'react': {
+                        commonjs: 'react',
+                        commonjs2: 'react',
+                        amd: 'react',
+                        root: 'React'
+                    },
+                    'react-dom': {
+                        commonjs: 'react-dom',
+                        commonjs2: 'react-dom',
+                        amd: 'react-dom',
+                        root: 'ReactDOM'
+                    }
+                };
+            }
         } else if (projectType === ProjectType.Vue) {
-            cfg.externals = {
-                'vue': 'vue'
-            };
+            if(cfg.library.type === 'module' || cfg.library.type === 'commonjs'){
+                cfg.externals = {
+                    'vue': 'vue'
+                };
+            }else{
+                cfg.externals = {
+                    'vue': {
+                        commonjs: 'vue',
+                        commonjs2: 'vue',
+                        amd: 'vue',
+                        root: 'Vue'
+                    }
+                };
+            }
         } else {
             cfg.externals = {};
         }
