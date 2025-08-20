@@ -2,7 +2,9 @@ import typescript from 'rollup-plugin-typescript2';
 import { nodeResolve } from '@rollup/plugin-node-resolve';
 import commonjs from '@rollup/plugin-commonjs';
 import json from "@rollup/plugin-json";
+// @ts-ignore
 import shebang from 'rollup-plugin-preserve-shebang';
+// @ts-ignore
 import del from 'rollup-plugin-delete';
 import terser from '@rollup/plugin-terser';
 
@@ -20,7 +22,7 @@ export default {
       dir: 'dist',
       format: 'esm', // ES Module 格式
       preserveModules: true,
-      entryFileNames: ({ name }) => {
+      entryFileNames: ({ name }:{ name: string}) => {
         if (name === 'bin/zgl') {
           return 'bin/zgl';
         }
