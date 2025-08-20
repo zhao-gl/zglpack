@@ -7,7 +7,7 @@ import {detectProjectType, ProjectType} from './utils/enhanced';
 // 动态生成默认配置
 export default async function () {
     // 检测项目类型
-    const projectType = await detectProjectType();
+    const projectType = detectProjectType();
     const config = {
         mode: 'production',
         entry: getEntryPoints(),
@@ -236,19 +236,18 @@ export default async function () {
     }
     // 根据项目类型添加特定配置
     if (projectType === ProjectType.Vue) {
-        const { VueLoaderPlugin } = await import('vue-loader');
-        // 添加Vue loader规则
+        // @ts-ignore
+        const { VueLoaderPlugin } = await import('vue-loader')
         config.module.rules.push({
             test: /\.vue$/,
-            exclude: /node_modules/,
-            use: {
-                loader: 'vue-loader',
-                options: {} as any
-            },
+            // @ts-ignore
+            loader: 'vue-loader',
+            options:{
+                experimentalInlineMatchResource: true
+            }
         });
         // @ts-ignore
         config.plugins.push(new VueLoaderPlugin());
-
         // 添加.vue扩展名
         config.resolve.extensions.push('.vue');
     }

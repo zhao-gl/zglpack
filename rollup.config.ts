@@ -44,16 +44,15 @@ export default {
       compress: {
         drop_console: true,    // 移除 console.*
         drop_debugger: true,   // 移除 debugger 语句
-        pure_funcs: ['console.log', 'console.info', 'console.debug'] // 移除指定的函数调用
       },
       mangle: {
         properties: {
           regex: /^__/,
         }
       },
-      output: {
-        comments: false // 移除注释
-      }
+      // output: {
+      //   comments: false // 移除注释
+      // }
     })
   ],
   external: [
@@ -74,5 +73,6 @@ export default {
     'react/jsx-runtime',
     'vue',
     'vue-loader',
+    '@vue/compiler-sfc'
   ],
 };

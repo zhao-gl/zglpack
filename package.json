@@ -1,7 +1,7 @@
 {
   "name": "zglpack",
   "type": "module",
-  "version": "0.0.80",
+  "version": "0.0.4",
   "description": "",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -44,6 +44,7 @@
     "typescript": "^5.9.2",
     "uglify-js": "^3.19.3",
     "vue-loader": "^17.4.2",
+    "@vue/compiler-sfc": "^3.5.18",
     "webpack": "^5.101.1"
   },
   "files": [

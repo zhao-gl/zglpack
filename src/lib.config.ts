@@ -605,51 +605,23 @@ export default async function () {
         configs.push(config);
     }
 
-    // 为每个配置设置外部依赖
-    // configs.forEach(cfg => {
-    //     if (projectType === ProjectType.React) {
-    //         if(cfg.output.library.type === 'module' || cfg.output.library.type === 'commonjs'){
-    //             cfg.externals = {
-    //                 'react': 'react',
-    //                 'react-dom': 'react-dom',
-    //                 'react/jsx-runtime': 'react/jsx-runtime',
-    //                 'react/jsx-dev-runtime': 'react/jsx-dev-runtime'
-    //             };
-    //         }else{
-    //             cfg.externals = {
-    //                 'react': {
-    //                     commonjs: 'react',
-    //                     commonjs2: 'react',
-    //                     amd: 'react',
-    //                     root: 'React'
-    //                 },
-    //                 'react-dom': {
-    //                     commonjs: 'react-dom',
-    //                     commonjs2: 'react-dom',
-    //                     amd: 'react-dom',
-    //                     root: 'ReactDOM'
-    //                 }
-    //             };
-    //         }
-    //     } else if (projectType === ProjectType.Vue) {
-    //         if(cfg.output.library.type === 'module' || cfg.output.library.type === 'commonjs'){
-    //             cfg.externals = {
-    //                 'vue': 'vue'
-    //             };
-    //         }else{
-    //             cfg.externals = {
-    //                 'vue': {
-    //                     commonjs: 'vue',
-    //                     commonjs2: 'vue',
-    //                     amd: 'vue',
-    //                     root: 'Vue'
-    //                 }
-    //             };
-    //         }
-    //     } else {
-    //         cfg.externals = {};
-    //     }
-    // });
-
+    // 根据项目类型添加特定配置
+    if (projectType === ProjectType.Vue) {
+        const { VueLoaderPlugin } = await import('vue-loader')
+        configs.forEach(cfg => {
+            cfg.module.rules.push({
+                test: /\.vue$/,
+                // @ts-ignore
+                loader: 'vue-loader',
+                options:{
+                    experimentalInlineMatchResource: true
+                }
+            });
+            // @ts-ignore
+            cfg.plugins.push(new VueLoaderPlugin());
+            // 添加.vue扩展名
+            cfg.resolve.extensions.push('.vue');
+        })
+    }
     return configs;
 }

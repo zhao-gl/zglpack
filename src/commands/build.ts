@@ -23,6 +23,7 @@ const build = async (options: { mode: string, lib?: boolean }) => {
     const configs = baseConfig.map(config => ({
       ...config,
       ...userConfig,
+      // @ts-ignore
       mode: userConfig?.mode || options.mode || config.mode,
     }));
 
