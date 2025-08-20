@@ -4,7 +4,7 @@ import { getUserConfig } from '../utils/utils';
 
 // 默认配置
 // @ts-ignore 忽略找不到模块声明文件的错误
-import getDefaultConfig from '../default.config.js';
+import getDefaultConfig from '../default.config';
 
 const serve = async (options: { port: string; open: boolean }) => {
   const userConfig = await getUserConfig();

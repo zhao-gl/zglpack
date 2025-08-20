@@ -3,9 +3,9 @@ import { getUserConfig } from '../utils/utils';
 
 // 默认构建配置
 // @ts-ignore 忽略找不到模块声明文件的错误
-import getDefaultConfig from '../default.config.js';
+import getDefaultConfig from '../default.config';
 // @ts-ignore 忽略找不到模块声明文件的错误
-import getLibConfig from '../lib.config.js';
+import getLibConfig from '../lib.config';
 
 /**
  * 构建项目

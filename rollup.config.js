@@ -12,7 +12,7 @@ export default {
     'commands/build': 'src/commands/build.ts',
     'commands/serve': 'src/commands/serve.ts',
     'utils/utils': 'src/utils/utils.ts',
-    'default.config': 'src/default.config.js',
+    'default.config': 'src/default.config.ts',
     'index': 'src/index.ts'
   },
   output: [

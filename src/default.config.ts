@@ -1,6 +1,5 @@
 import path from "path";
 import pkg from '@rspack/core';
-import { CssExtractRspackPlugin } from '@rspack/core'
 const {ProgressPlugin, HtmlRspackPlugin, SwcJsMinimizerRspackPlugin} = pkg;
 import {getEntryPoints} from './utils/utils';
 import {detectProjectType, ProjectType} from './utils/enhanced';
@@ -177,10 +176,10 @@ export default async function () {
                 cacheGroups: {
                     // 将node_modules中的第三方库打包成一个单独的chunk
                     vendor: {
-                        test: /[/]node_modules[/]/,
-                        name(module) {
+                        test: /\/node_modules\//,
+                        name(module: any) {
                             // 提取包名（如 node_modules/react → react）
-                            const packageName = module.context.match(/[/]node_modules[/](.*?)([/]|$)/)[1];
+                            const packageName = module.context.match(/\/node_modules\/(.*?)(\/|$)/)[1];
                             // 替换特殊字符，避免影响文件名
                             return `vendors.${packageName.replace('@', '')}`;
                         },
@@ -202,9 +201,9 @@ export default async function () {
                     },
                     // 为大型第三方库创建单独的chunks
                     vendorLarge: {
-                        test: /[/]node_modules[/]/,
-                        name(module) {
-                            const packageName = module.context.match(/[/]node_modules[/](.*?)([/]|$)/)[1];
+                        test: /\/node_modules\//,
+                        name(module: any) {
+                            const packageName = module.context.match(/\/node_modules\/(.*?)(\/|$)/)[1];
                             return `vendors.large.${packageName.replace('@', '')}`;
                         },
                         priority: 20, // 更高优先级
@@ -237,17 +236,15 @@ export default async function () {
     }
     // 根据项目类型添加特定配置
     if (projectType === ProjectType.Vue) {
-        // 动态导入Vue相关模块
-        const {VueLoaderPlugin} = await import('vue-loader');
-
         // 添加Vue loader规则
         config.module.rules.push({
             test: /\.vue$/,
-            use: 'vue-loader',
+            exclude: /node_modules/,
+            use: {
+                loader: 'vue-loader',
+                options: {} as any
+            },
         });
-
-        // 添加Vue loader插件
-        config.plugins.push(new VueLoaderPlugin());
 
         // 添加.vue扩展名
         config.resolve.extensions.push('.vue');
