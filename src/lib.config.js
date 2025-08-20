@@ -9,7 +9,7 @@ import { detectProjectType, ProjectType, detectBundleType, BundleType } from './
 // 动态生成库模式配置
 export default async function () {
     // 检测项目类型
-    const projectType = await detectProjectType();
+    const projectType = detectProjectType();
 
     // 读取package.json以确定打包类型
     const packageJsonPath = path.resolve(process.cwd(), 'package.json');
@@ -522,6 +522,7 @@ export default async function () {
 
     // 为每个配置设置外部依赖
     configs.forEach(cfg => {
+        console.log('projectType:', projectType)
         if (projectType === ProjectType.React) {
             cfg.externals = {
                 'react': 'react',
