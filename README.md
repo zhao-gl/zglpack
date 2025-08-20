@@ -16,7 +16,7 @@
 ## 安装
 
 ```bash
-npm install -g @uni-fe/zglbuild
+npm install -g zglpack
 ```
 
 ## 使用
