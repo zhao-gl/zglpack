@@ -236,6 +236,7 @@ export default async function () {
     }
     // 根据项目类型添加特定配置
     if (projectType === ProjectType.Vue) {
+        const { VueLoaderPlugin } = await import('vue-loader');
         // 添加Vue loader规则
         config.module.rules.push({
             test: /\.vue$/,
@@ -245,6 +246,8 @@ export default async function () {
                 options: {} as any
             },
         });
+        // @ts-ignore
+        config.plugins.push(new VueLoaderPlugin());
 
         // 添加.vue扩展名
         config.resolve.extensions.push('.vue');
