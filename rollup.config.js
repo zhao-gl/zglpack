@@ -50,10 +50,11 @@ export default {
     'uglify-js',
     'tslib',
     'ts-node',
-    'vue-loader',
     'style-loader',
     'react',
     'react-dom',
+    'react/jsx-runtime',
     'vue',
+    'vue-loader',
   ],
 };

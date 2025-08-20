@@ -524,10 +524,12 @@ export default async function () {
     configs.forEach(cfg => {
         console.log('projectType:', projectType)
         if (projectType === ProjectType.React) {
-            if(cfg.library.type === 'module' || cfg.library.type === 'commonjs'){
+            if(cfg.output.library.type === 'module' || cfg.output.library.type === 'commonjs'){
                 cfg.externals = {
                     'react': 'react',
-                    'react-dom': 'react-dom'
+                    'react-dom': 'react-dom',
+                    'react/jsx-runtime': 'react/jsx-runtime',
+                    'react/jsx-dev-runtime': 'react/jsx-dev-runtime'
                 };
             }else{
                 cfg.externals = {
@@ -546,7 +548,7 @@ export default async function () {
                 };
             }
         } else if (projectType === ProjectType.Vue) {
-            if(cfg.library.type === 'module' || cfg.library.type === 'commonjs'){
+            if(cfg.output.library.type === 'module' || cfg.output.library.type === 'commonjs'){
                 cfg.externals = {
                     'vue': 'vue'
                 };

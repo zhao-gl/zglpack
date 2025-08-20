@@ -15,12 +15,10 @@
   "author": "",
   "license": "MIT",
   "dependencies": {
-    "@emotion/react": "^11.14.0",
     "@rspack/cli": "^1.4.11",
     "@rspack/core": "^1.4.11",
     "@rspack/dev-server": "^1.1.4",
-    "commander": "^14.0.0",
-    "ts-node": "^10.9.2"
+    "commander": "^14.0.0"
   },
   "devDependencies": {
     "@rollup/plugin-commonjs": "^28.0.6",
@@ -40,7 +38,8 @@
     "typescript": "^5.9.2",
     "uglify-js": "^3.19.3",
     "vue-loader": "^17.4.2",
-    "webpack": "^5.101.1"
+    "webpack": "^5.101.1",
+    "ts-node": "^10.9.2"
   },
   "files": [
     "dist/",
@@ -49,5 +48,9 @@
   ],
   "engines": {
     "node": ">=16.x"
+  },
+  "peerDependencies": {
+    "@rspack/cli": "^1.4.11",
+    "@rspack/core": "^1.4.11"
   }
 }
