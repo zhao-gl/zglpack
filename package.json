@@ -1,7 +1,7 @@
 {
   "name": "zglpack",
   "type": "module",
-  "version": "1.0.1",
+  "version": "0.0.4",
   "description": "",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
