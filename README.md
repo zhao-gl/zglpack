@@ -53,12 +53,13 @@ zgl build
 
 ```javascript
 // zgl.config.js
-export default {
+import { defineConfig } from 'zglpack';
+export default defineConfig({
   // 自定义配置项
   devServer: {
     port: 8080
   }
-};
+});
 ```
 
 自定义配置会与默认配置进行合并。
