@@ -2,9 +2,7 @@ import { rspack } from '@rspack/core';
 import { getUserConfig } from '../utils/utils';
 
 // 默认构建配置
-// @ts-ignore 忽略找不到模块声明文件的错误
 import getDefaultConfig from '../default.config';
-// @ts-ignore 忽略找不到模块声明文件的错误
 import getLibConfig from '../lib.config';
 
 /**

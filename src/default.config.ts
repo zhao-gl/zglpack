@@ -1,4 +1,5 @@
 import path from "path";
+import fs from "fs";
 import pkg from '@rspack/core';
 const {ProgressPlugin, HtmlRspackPlugin, SwcJsMinimizerRspackPlugin} = pkg;
 import {getEntryPoints} from './utils/utils';
@@ -8,6 +9,9 @@ import {detectProjectType, ProjectType} from './utils/enhanced';
 export default async function () {
     // 检测项目类型
     const projectType = detectProjectType();
+    // 检测index.html文件位置
+    const rootIndexPath = path.resolve(process.cwd(), 'index.html');
+    const templatePath = fs.existsSync(rootIndexPath) ? './index.html' : './public/index.html';
     const config = {
         mode: 'production',
         entry: getEntryPoints(),
@@ -156,7 +160,7 @@ export default async function () {
             new ProgressPlugin({}),  // 添加打包进度条插件
             // 自动生成HTML
             new HtmlRspackPlugin({
-                template: './public/index.html',
+                template: templatePath,
                 filename: 'index.html'
             }),
         ],

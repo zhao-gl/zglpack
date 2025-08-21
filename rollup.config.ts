@@ -42,7 +42,7 @@ export default {
     shebang(),
     terser({
       compress: {
-        drop_console: true,    // 移除 console.*
+        drop_console: false,    // 移除 console.*
         drop_debugger: true,   // 移除 debugger 语句
       },
       mangle: {
